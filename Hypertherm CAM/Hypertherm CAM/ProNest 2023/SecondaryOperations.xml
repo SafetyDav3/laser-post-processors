@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<secondaryoperations>
+	<secondaryoperation>
+		<name>DEBURR</name>
+		<productionrate>35</productionrate>
+		<productionmarkup overridden="false">0.27</productionmarkup>
+		<fixedcost active="true" type="ctTime">
+			<cost>0</cost>
+			<time>0.0833333333333333</time>
+		</fixedcost>
+		<variablecost active="true" type="ctTime" unit="cuPart">
+			<cost>0</cost>
+			<time>0.0166666666666667</time>
+			<quantity>0</quantity>
+		</variablecost>
+	</secondaryoperation>
+	<secondaryoperation>
+		<name>detab</name>
+		<productionrate>35</productionrate>
+		<productionmarkup overridden="false">0.27</productionmarkup>
+		<fixedcost active="false" type="ctCost">
+			<cost>0</cost>
+			<time>0</time>
+		</fixedcost>
+		<variablecost active="true" type="ctTime" unit="cuPart">
+			<cost>0</cost>
+			<time>0.0166666666666667</time>
+			<quantity>1</quantity>
+		</variablecost>
+	</secondaryoperation>
+	<secondaryoperation>
+		<name>TAPPING</name>
+		<productionrate>35</productionrate>
+		<productionmarkup overridden="false">0.27</productionmarkup>
+		<fixedcost active="true" type="ctTime">
+			<cost>0</cost>
+			<time>0.0833333333333333</time>
+		</fixedcost>
+		<variablecost active="true" type="ctTime" unit="cuPart">
+			<cost>2</cost>
+			<time>0.0333333333333333</time>
+			<quantity>0</quantity>
+		</variablecost>
+	</secondaryoperation>
+</secondaryoperations>

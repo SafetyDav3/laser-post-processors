@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aliases>
+	<alias name="MS" thickness="0.25" grade="" units="inch">
+		<material name="SS" thickness="0.048" grade="" units="inch"/>
+		<classes>
+			<class name="O2 Assist" alias="N2 Assist"/>
+		</classes>
+	</alias>
+	<alias name="SS" thickness="0.048" grade="" units="inch">
+		<material name="SS" thickness="0.048" grade="" units="inch"/>
+		<classes>
+			<class name="N2 Assist" alias="N2 Assist"/>
+		</classes>
+	</alias>
+	<alias name="MS" thickness="0.5" grade="" units="inch">
+		<material name="MS" thickness="0.5" grade="" units="inch"/>
+		<classes>
+			<class name="O2 Assist" alias="O2 Assist"/>
+		</classes>
+	</alias>
+	<alias name="MS" thickness="0.105" grade="" units="inch">
+		<material name="MS" thickness="0.105" grade="" units="inch"/>
+		<classes>
+			<class name="" alias=""/>
+		</classes>
+	</alias>
+	<alias name="MS" thickness="0.03" grade="" units="inch">
+		<material name="MS" thickness="0.03" grade="" units="inch"/>
+		<classes>
+			<class name="" alias="O2 Assist"/>
+		</classes>
+	</alias>
+	<alias name="MS" thickness="0.125" grade="" units="inch">
+		<material name="MS" thickness="0.125" grade="" units="inch"/>
+		<classes>
+			<class name="" alias=""/>
+		</classes>
+	</alias>
+</aliases>

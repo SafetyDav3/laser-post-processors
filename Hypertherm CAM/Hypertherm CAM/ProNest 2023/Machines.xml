@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<machines>
+	<machine type="3">
+		<name>Mitsubishi LVPlus 4kW CO2 laser (inch)</name>
+		<pinned>false</pinned>
+		<active>true</active>
+		<datecurrent>2024-04-08T15:02:01.519-05:00</datecurrent>
+	</machine>
+</machines>

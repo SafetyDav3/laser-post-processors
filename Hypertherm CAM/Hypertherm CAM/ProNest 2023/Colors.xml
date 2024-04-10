@@ -1,0 +1,322 @@
+<?xml version="1.0"?>
+<colors>
+	<qualities>
+		<quality color="11829830" value="0"/>
+		<quality color="255" value="1"/>
+		<quality color="65535" value="2"/>
+		<quality color="65280" value="3"/>
+		<quality color="16776960" value="4"/>
+		<quality color="16711680" value="5"/>
+		<quality color="16711935" value="6"/>
+		<quality color="301989887" value="7"/>
+		<quality color="8421504" value="8"/>
+		<quality color="12632256" value="9"/>
+		<quality color="255" value="10"/>
+		<quality color="8421631" value="11"/>
+		<quality color="166" value="12"/>
+		<quality color="5460902" value="13"/>
+		<quality color="128" value="14"/>
+		<quality color="4210816" value="15"/>
+		<quality color="77" value="16"/>
+		<quality color="2500173" value="17"/>
+		<quality color="38" value="18"/>
+		<quality color="1250086" value="19"/>
+		<quality color="16639" value="20"/>
+		<quality color="8429567" value="21"/>
+		<quality color="10662" value="22"/>
+		<quality color="5466278" value="23"/>
+		<quality color="8320" value="24"/>
+		<quality color="4214912" value="25"/>
+		<quality color="4941" value="26"/>
+		<quality color="2502733" value="27"/>
+		<quality color="2598" value="28"/>
+		<quality color="1251366" value="29"/>
+		<quality color="33023" value="30"/>
+		<quality color="8437759" value="31"/>
+		<quality color="21414" value="32"/>
+		<quality color="5471398" value="33"/>
+		<quality color="16512" value="34"/>
+		<quality color="4219008" value="35"/>
+		<quality color="9805" value="36"/>
+		<quality color="2505037" value="37"/>
+		<quality color="4902" value="38"/>
+		<quality color="1252646" value="39"/>
+		<quality color="49151" value="40"/>
+		<quality color="8445951" value="41"/>
+		<quality color="31910" value="42"/>
+		<quality color="5476774" value="43"/>
+		<quality color="24704" value="44"/>
+		<quality color="4223104" value="45"/>
+		<quality color="14669" value="46"/>
+		<quality color="2507597" value="47"/>
+		<quality color="7462" value="48"/>
+		<quality color="1253670" value="49"/>
+		<quality color="65535" value="50"/>
+		<quality color="8454143" value="51"/>
+		<quality color="42662" value="52"/>
+		<quality color="5482150" value="53"/>
+		<quality color="32896" value="54"/>
+		<quality color="4227200" value="55"/>
+		<quality color="19789" value="56"/>
+		<quality color="2510157" value="57"/>
+		<quality color="9766" value="58"/>
+		<quality color="1254950" value="59"/>
+		<quality color="65471" value="60"/>
+		<quality color="8454111" value="61"/>
+		<quality color="42620" value="62"/>
+		<quality color="5482129" value="63"/>
+		<quality color="32864" value="64"/>
+		<quality color="4227184" value="65"/>
+		<quality color="19769" value="66"/>
+		<quality color="2510147" value="67"/>
+		<quality color="9757" value="68"/>
+		<quality color="1254945" value="69"/>
+		<quality color="65408" value="70"/>
+		<quality color="8454079" value="71"/>
+		<quality color="42579" value="72"/>
+		<quality color="5482108" value="73"/>
+		<quality color="32832" value="74"/>
+		<quality color="4227168" value="75"/>
+		<quality color="19750" value="76"/>
+		<quality color="2510137" value="77"/>
+		<quality color="9747" value="78"/>
+		<quality color="1254941" value="79"/>
+		<quality color="65344" value="80"/>
+		<quality color="8454047" value="81"/>
+		<quality color="42537" value="82"/>
+		<quality color="5482088" value="83"/>
+		<quality color="32800" value="84"/>
+		<quality color="4227152" value="85"/>
+		<quality color="19731" value="86"/>
+		<quality color="2510128" value="87"/>
+		<quality color="9738" value="88"/>
+		<quality color="1254936" value="89"/>
+		<quality color="65280" value="90"/>
+		<quality color="8454016" value="91"/>
+		<quality color="42496" value="92"/>
+		<quality color="5482067" value="93"/>
+		<quality color="32768" value="94"/>
+		<quality color="4227136" value="95"/>
+		<quality color="19712" value="96"/>
+		<quality color="2510118" value="97"/>
+		<quality color="9728" value="98"/>
+		<quality color="1254931" value="99"/>
+		<quality color="4259584" value="100"/>
+		<quality color="10485632" value="101"/>
+		<quality color="2729472" value="102"/>
+		<quality color="6858323" value="103"/>
+		<quality color="2129920" value="104"/>
+		<quality color="5275712" value="105"/>
+		<quality color="1264896" value="106"/>
+		<quality color="3165478" value="107"/>
+		<quality color="665088" value="108"/>
+		<quality color="1582611" value="109"/>
+		<quality color="8453888" value="110"/>
+		<quality color="12582784" value="111"/>
+		<quality color="5481984" value="112"/>
+		<quality color="8169043" value="113"/>
+		<quality color="4227072" value="114"/>
+		<quality color="6324288" value="115"/>
+		<quality color="2510080" value="116"/>
+		<quality color="3755302" value="117"/>
+		<quality color="1254912" value="118"/>
+		<quality color="1910291" value="119"/>
+		<quality color="12582656" value="120"/>
+		<quality color="14679936" value="121"/>
+		<quality color="8168960" value="122"/>
+		<quality color="9545299" value="123"/>
+		<quality color="6324224" value="124"/>
+		<quality color="7372864" value="125"/>
+		<quality color="3755264" value="126"/>
+		<quality color="4410662" value="127"/>
+		<quality color="1910272" value="128"/>
+		<quality color="2172435" value="129"/>
+		<quality color="16776960" value="130"/>
+		<quality color="16777088" value="131"/>
+		<quality color="10921472" value="132"/>
+		<quality color="10921555" value="133"/>
+		<quality color="8421376" value="134"/>
+		<quality color="8421440" value="135"/>
+		<quality color="5065984" value="136"/>
+		<quality color="5066022" value="137"/>
+		<quality color="2500096" value="138"/>
+		<quality color="2500115" value="139"/>
+		<quality color="16760576" value="140"/>
+		<quality color="16768896" value="141"/>
+		<quality color="10910720" value="142"/>
+		<quality color="10916179" value="143"/>
+		<quality color="8413184" value="144"/>
+		<quality color="8417344" value="145"/>
+		<quality color="5060864" value="146"/>
+		<quality color="5063462" value="147"/>
+		<quality color="2497792" value="148"/>
+		<quality color="2498835" value="149"/>
+		<quality color="16744448" value="150"/>
+		<quality color="16760704" value="151"/>
+		<quality color="10900224" value="152"/>
+		<quality color="10910803" value="153"/>
+		<quality color="8404992" value="154"/>
+		<quality color="8413248" value="155"/>
+		<quality color="5056000" value="156"/>
+		<quality color="5060902" value="157"/>
+		<quality color="2495232" value="158"/>
+		<quality color="2497811" value="159"/>
+		<quality color="16728064" value="160"/>
+		<quality color="16752512" value="161"/>
+		<quality color="10889472" value="162"/>
+		<quality color="10905683" value="163"/>
+		<quality color="8396800" value="164"/>
+		<quality color="8409152" value="165"/>
+		<quality color="5051136" value="166"/>
+		<quality color="5058598" value="167"/>
+		<quality color="2492928" value="168"/>
+		<quality color="2496531" value="169"/>
+		<quality color="16711680" value="170"/>
+		<quality color="16744576" value="171"/>
+		<quality color="10878976" value="172"/>
+		<quality color="10900307" value="173"/>
+		<quality color="8388608" value="174"/>
+		<quality color="8405056" value="175"/>
+		<quality color="5046272" value="176"/>
+		<quality color="5056038" value="177"/>
+		<quality color="2490368" value="178"/>
+		<quality color="2495251" value="179"/>
+		<quality color="16711744" value="180"/>
+		<quality color="16744607" value="181"/>
+		<quality color="10879017" value="182"/>
+		<quality color="10900328" value="183"/>
+		<quality color="8388640" value="184"/>
+		<quality color="8405072" value="185"/>
+		<quality color="5046282" value="186"/>
+		<quality color="5056048" value="187"/>
+		<quality color="2490378" value="188"/>
+		<quality color="2495256" value="189"/>
+		<quality color="16711808" value="190"/>
+		<quality color="16744639" value="191"/>
+		<quality color="10879059" value="192"/>
+		<quality color="10900348" value="193"/>
+		<quality color="8388672" value="194"/>
+		<quality color="8405088" value="195"/>
+		<quality color="5046310" value="196"/>
+		<quality color="5056057" value="197"/>
+		<quality color="2490387" value="198"/>
+		<quality color="2495261" value="199"/>
+		<quality color="16711871" value="200"/>
+		<quality color="16744671" value="201"/>
+		<quality color="10879100" value="202"/>
+		<quality color="10900369" value="203"/>
+		<quality color="8388704" value="204"/>
+		<quality color="8405104" value="205"/>
+		<quality color="5046329" value="206"/>
+		<quality color="5056067" value="207"/>
+		<quality color="2490397" value="208"/>
+		<quality color="2495265" value="209"/>
+		<quality color="16711935" value="210"/>
+		<quality color="16744703" value="211"/>
+		<quality color="10879142" value="212"/>
+		<quality color="10900390" value="213"/>
+		<quality color="8388736" value="214"/>
+		<quality color="8405120" value="215"/>
+		<quality color="5046349" value="216"/>
+		<quality color="5056077" value="217"/>
+		<quality color="2490406" value="218"/>
+		<quality color="2495270" value="219"/>
+		<quality color="12517631" value="220"/>
+		<quality color="14647551" value="221"/>
+		<quality color="8126630" value="222"/>
+		<quality color="9524134" value="223"/>
+		<quality color="6291584" value="224"/>
+		<quality color="7356544" value="225"/>
+		<quality color="3735629" value="226"/>
+		<quality color="4400717" value="227"/>
+		<quality color="1900582" value="228"/>
+		<quality color="2167590" value="229"/>
+		<quality color="8388863" value="230"/>
+		<quality color="12550399" value="231"/>
+		<quality color="5439654" value="232"/>
+		<quality color="8147878" value="233"/>
+		<quality color="4194432" value="234"/>
+		<quality color="6307968" value="235"/>
+		<quality color="2490445" value="236"/>
+		<quality color="3745357" value="237"/>
+		<quality color="1245222" value="238"/>
+		<quality color="1905446" value="239"/>
+		<quality color="4194559" value="240"/>
+		<quality color="10453247" value="241"/>
+		<quality color="2687142" value="242"/>
+		<quality color="6837158" value="243"/>
+		<quality color="2097280" value="244"/>
+		<quality color="5259392" value="245"/>
+		<quality color="1245261" value="246"/>
+		<quality color="3155533" value="247"/>
+		<quality color="655398" value="248"/>
+		<quality color="1577766" value="249"/>
+		<quality color="5526612" value="250"/>
+		<quality color="7763574" value="251"/>
+		<quality color="10000536" value="252"/>
+		<quality color="12303291" value="253"/>
+		<quality color="14540253" value="254"/>
+		<quality color="16777215" value="255"/>
+	</qualities>
+	<processes>
+		<process type="20" color="32768"/>
+		<process type="30" color="16711680"/>
+		<process type="41" color="0"/>
+		<process type="302" color="6697881"/>
+		<process type="340" color="16512"/>
+	</processes>
+	<general>
+		<background color="536870912"/>
+		<bridge color="32768"/>
+		<chain color="32768"/>
+		<conflict color="255"/>
+		<cut color="32768"/>
+		<displayonly color="10053222"/>
+		<fill color="12632256"/>
+		<fillscheme fillscheme="1"/>
+		<inherit color="16711935"/>
+		<noquality color="7451452"/>
+		<plate color="16777215"/>
+		<remnant color="12632256"/>
+		<safezone color="11599871"/>
+		<selected color="16711680"/>
+		<skeletoncut color="0"/>
+		<slats color="10789024"/>
+		<torchpath color="3355443"/>
+		<traverse color="3355443"/>
+		<uncut color="10944422"/>
+		<wclc color="36095"/>
+	</general>
+	<colorpalette>
+		<color value="32768"/>
+		<color value="8388672"/>
+		<color value="6946815"/>
+		<color value="16744448"/>
+		<color value="12615935"/>
+		<color value="16512"/>
+		<color value="0"/>
+		<color value="65280"/>
+		<color value="16744576"/>
+		<color value="65535"/>
+		<color value="8404992"/>
+		<color value="8388863"/>
+		<color value="16777211"/>
+		<color value="8421440"/>
+		<color value="8388608"/>
+		<color value="4227327"/>
+		<color value="16777088"/>
+		<color value="4194432"/>
+		<color value="4227200"/>
+		<color value="64"/>
+	</colorpalette>
+	<profilecolors>
+		<profilecolor profiletype="3" color="6946815"/>
+		<profilecolor profiletype="4" color="16744448"/>
+		<profilecolor profiletype="7" color="8421440"/>
+		<profilecolor profiletype="6" color="16512"/>
+		<profilecolor profiletype="5" color="12615935"/>
+		<profilecolor profiletype="0" color="0"/>
+		<profilecolor profiletype="1" color="32768"/>
+		<profilecolor profiletype="2" color="8388672"/>
+	</profilecolors>
+</colors>

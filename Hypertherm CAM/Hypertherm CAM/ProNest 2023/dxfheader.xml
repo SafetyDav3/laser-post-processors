@@ -1,0 +1,1096 @@
+<part>
+  <drawingproperties>
+    <drawingproperty name="ANGBASE">
+      <drawingpropertyvalue>
+        <groupcode>50</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="ANGDIR">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="ATTMODE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="AUNITS">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="AUPREC">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;2</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="CECOLOR">
+      <drawingpropertyvalue>
+        <groupcode>62</groupcode>
+        <type>Integer</type>
+        <data>6;256</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="CELTSCALE">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="CHAMFERA">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="CHAMFERB">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="CHAMFERC">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="CHAMFERD">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="CMLJUST">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="CMLSCALE">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMADEC">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;2</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMALT">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;False</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMALTD">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;2</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMALTF">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;25.4</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMALTRND">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMALTTD">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;2</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMALTTZ">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMALTU">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;2</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMALTZ">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMAPOST">
+      <drawingpropertyvalue>
+        <groupcode>1</groupcode>
+        <type>String</type>
+        <data>2;</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMARCSYM">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMASZ">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMATFIT">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;3</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMAUNIT">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMAZIN">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMBLK">
+    </drawingproperty>
+    <drawingproperty name="DIMBLK1">
+    </drawingproperty>
+    <drawingproperty name="DIMBLK2">
+    </drawingproperty>
+    <drawingproperty name="DIMCEN">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0.09</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMCLRD">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;216</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMCLRE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;216</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMCLRT">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;3</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMDEC">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;4</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMDLE">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMDLI">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0.38</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMDSEP">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMEXE">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMEXO">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0.03</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMFRAC">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMFXL">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMFXLON">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;False</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMGAP">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMJOGANG">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0.785398163397448</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMJUST">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMLDRBLK">
+    </drawingproperty>
+    <drawingproperty name="DIMLFAC">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMLIM">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;False</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMLTEX1">
+      <drawingpropertyvalue>
+        <groupcode>6</groupcode>
+        <type>String</type>
+        <data>2;ByBlock</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMLTEX2">
+      <drawingpropertyvalue>
+        <groupcode>6</groupcode>
+        <type>String</type>
+        <data>2;ByBlock</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMLTYPE">
+      <drawingpropertyvalue>
+        <groupcode>6</groupcode>
+        <type>String</type>
+        <data>2;ByBlock</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMLUNIT">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;2</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMLWD">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;-2</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMLWE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;-2</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMPOST">
+      <drawingpropertyvalue>
+        <groupcode>1</groupcode>
+        <type>String</type>
+        <data>2;</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMRND">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMSAH">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;False</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMSCALE">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMSD1">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;False</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMSD2">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;False</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMSE1">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;False</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMSE2">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;False</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMSHO">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;True</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMSOXD">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;False</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMSTYLE">
+      <drawingpropertyvalue>
+        <groupcode>2</groupcode>
+        <type>String</type>
+        <data>2;Standard</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTAD">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTDEC">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;4</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTFAC">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTFILL">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;2</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTFILLCLR">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTIH">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;False</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTIX">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;False</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTM">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTMOVE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTOFL">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;False</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTOH">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;True</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTOL">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;False</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTOLJ">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTP">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTSZ">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTVP">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTXSTY">
+      <drawingpropertyvalue>
+        <groupcode>7</groupcode>
+        <type>String</type>
+        <data>2;Standard</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTXT">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMTZIN">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMUPT">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Bool</type>
+        <data>3;False</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DIMZIN">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DISPSILH">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="DRAWORDERCTL">
+      <drawingpropertyvalue>
+        <groupcode>280</groupcode>
+        <type>Integer</type>
+        <data>6;3</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="ELEVATION">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="EXTMAX">
+      <drawingpropertyvalue>
+        <groupcode>5009</groupcode>
+        <type>Point</type>
+        <data>9;0,0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="EXTMIN">
+      <drawingpropertyvalue>
+        <groupcode>5009</groupcode>
+        <type>Point</type>
+        <data>9;0,0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="FACETRES">
+      <drawingpropertyvalue>
+        <groupcode>5001</groupcode>
+        <type>Double</type>
+        <data>7;0.5</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="FILLETRAD">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="FILLMODE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="HIDETEXT">
+      <drawingpropertyvalue>
+        <groupcode>280</groupcode>
+        <type>Bool</type>
+        <data>3;True</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="INSBASE">
+      <drawingpropertyvalue>
+        <groupcode>5009</groupcode>
+        <type>Point</type>
+        <data>9;0,0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="INSUNITS">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="ISOLINES">
+      <drawingpropertyvalue>
+        <groupcode>5003</groupcode>
+        <type>Integer</type>
+        <data>6;4</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="LIMCHECK">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="LIMMAX">
+      <drawingpropertyvalue>
+        <groupcode>5002</groupcode>
+        <type>Point</type>
+        <data>9;0,0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="LIMMIN">
+      <drawingpropertyvalue>
+        <groupcode>5002</groupcode>
+        <type>Point</type>
+        <data>9;0,0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="LTSCALE">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="LUNITS">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;2</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="LUPREC">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;4</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="MAXACTVP">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;64</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="MIRRTEXT">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="ORTHOMODE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="PDMODE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="PDSIZE">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="PELLIPSE">
+      <drawingpropertyvalue>
+        <groupcode>5003</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="PLINEGEN">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="PLINEWID">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="PROXYGRAPHICS">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="PSLTSCALE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="PSTYLEMODE">
+      <drawingpropertyvalue>
+        <groupcode>290</groupcode>
+        <type>Integer</type>
+        <data>6;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="PSVPSCALE">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="PSOLWIDTH">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0.25</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="PUCSBASE">
+    </drawingproperty>
+    <drawingproperty name="QTEXTMODE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="REGENMODE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="SHADEDGE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;3</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="SHADEDIF">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;70</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="SKETCHINC">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0.1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="SKPOLY">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="SPLFRAME">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="SPLINESEGS">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;8</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="SPLINETYPE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;6</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="SURFTAB1">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;6</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="SURFTAB2">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;6</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="SURFTYPE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;6</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="SURFU">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;6</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="SURFV">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;6</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="TEXTQLTY">
+      <drawingpropertyvalue>
+        <groupcode>5003</groupcode>
+        <type>Integer</type>
+        <data>6;50</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="TEXTSIZE">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="TEXTSTYLE">
+      <drawingpropertyvalue>
+        <groupcode>7</groupcode>
+        <type>String</type>
+        <data>2;Standard</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="THICKNESS">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="TILEMODE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="TILEMODELIGHTSYNCH">
+      <drawingpropertyvalue>
+        <groupcode>280</groupcode>
+        <type>Integer</type>
+        <data>6;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="TIMEZONE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;-8000</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="TRACEWID">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0.05</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="TREEDEPTH">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;3020</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="UCSBASE">
+    </drawingproperty>
+    <drawingproperty name="UCSNAME">
+    </drawingproperty>
+    <drawingproperty name="UCSORG">
+      <drawingpropertyvalue>
+        <groupcode>5009</groupcode>
+        <type>Point</type>
+        <data>9;0,0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="UCSXDIR">
+      <drawingpropertyvalue>
+        <groupcode>5009</groupcode>
+        <type>Point</type>
+        <data>9;1,0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="UCSYDIR">
+      <drawingpropertyvalue>
+        <groupcode>5009</groupcode>
+        <type>Point</type>
+        <data>9;0,1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="UNITMODE">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="USERI1">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="USERI2">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="USERI3">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="USERI4">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="USERI5">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="USERR1">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="USERR2">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="USERR3">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="USERR4">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="USERR5">
+      <drawingpropertyvalue>
+        <groupcode>40</groupcode>
+        <type>Double</type>
+        <data>7;0</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="VISRETAIN">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+    <drawingproperty name="WORLDVIEW">
+      <drawingpropertyvalue>
+        <groupcode>70</groupcode>
+        <type>Integer</type>
+        <data>6;1</data>
+      </drawingpropertyvalue>
+    </drawingproperty>
+  </drawingproperties>
+</part>

@@ -1,0 +1,4991 @@
+[MAIN PART OF THE CFF]
+
+[MACHINE PROPERTIES]
+name=Mitsubishi Laser - simple output
+model=Now with subroutines
+subroutines=1
+comment_indicator=//
+Machine Type=3
+// Machine Types: 0 = plasma, 1 = oxyfuel, 2 = waterjet, 3 = laser, 4 = router
+
+[PROCESS NAMES]
+CUT1=Laser Cut
+SCRIBE1=Scribe
+PUNCH1=Punch
+
+[REVISION NUMBER]
+$Revision: 1.95 $
+
+[REVISION NOTES]
+1.0 Original version from Generic 1.46
+1.1 Add Subroutines
+1.2 Reposition the G40 on tabs
+1.3 Turn off kerf before starting an overtravel or leadout
+1.4 Move G40 always to the rapid motion line.  Add M121/M87 option. Adjust G41,
+    G40 positions.  Don't output M100 line if no valid data.  Allow #501= lines
+    to change during a cut.
+1.5 Improve Skeleton Cut Up support
+1.6 Add some CFF Options
+1.7 Copied from Mitsubishi Laser 3, renamed Plus
+1.8 Further improve skeleton cut routine - deal with off sheet geometry
+1.9 Enhance configurability of plus post options
+1.10 lock out off sheet cut code unless skeleton cutting
+1.11 Further improvements to offsheet cutting
+1.12 Fix parameter line not coming out when vaporizing
+1.13 Enhance Configurability of program header
+1.14 Further consolidation of machine options into CFF settings
+1.15 No need to stop 'on sheet' when skeleton cutting to off sheet pos
+1.16 Further changes to consolidate posts
+1.17 Minor changes at end of program code
+1.18 Ensure program number never exceeds 7000
+1.19 Add option to not use M100 column
+1.20 Support Mitsubishi 'Remote 360' system
+1.21 Small change for 'Remote 360' system
+1.22 Remove redundant [ARC RADIUS] Section
+1.23 Remove redundant [PRODUCTION TIME] Section
+1.24 Minor Tweaks to end of program, fix small bug in [PROCESS LINEAR MOTION]
+1.25 Percent at end was controlled by percent at start setting...
+1.26 Ensure M199 when transitioning to crop cut
+1.27 Fix ProgramEndCode
+1.28 Further accomodation of older machines
+1.29 Further configurability to accomodate older machines
+1.30 Further changes
+1.31 Fix bug in [START EXTERIOR PROFILE], add option to select off code by thickness, 
+	 add sub option to configure G28Z0 between sub calls
+1.32 Fix off sheet cut geometry when in a subroutine
+1.33 Add subroutine address start number setting, 
+	Add option to remove purge between scribe and cut
+1.34 To clarify, sub numbering is not a setting, it is an improvement on
+	SOP line numbering. Improve in sub coords for offsheet cutting
+1.35 Add Cutting Distance to remote 360 setting, add setting for changing cut condition, ensure m199 at end of SKU
+1.36 fix issue with offsheet coordinates being wrong (using wrong angle)
+1.37 Integrate some changes from other posts into Main Mitsu post
+1.38 Further work incorporating customisations into main
+1.39 Fix small bug with scribe cut cond dropping into M%d rather than #501
+1.40 Fix silly mistake in CIRCUMFERENCE section (not considering arcs that aren't full circles!)
+1.41 Add Fly cutting #44685, #45064
+1.42 G52 X, Y values can't be negative #45246
+1.43 Make it run on PN2017 again.  #45064, #45246
+1.44 Add G04 exact stop/dwell
+1.45 Further customisations for older machines
+1.46 Optionally Suppress D Word
+1.47 Fix bug where off code not coming out if SKU is last profile
+1.48 Fix oversight when D Word not output, no Cutter comp would appear, fix last profile off code
+1.49 Scribing a circle could trip the arc too small section causing it to not do the circle. #46049
+1.50 Add options to output D word on cutter comp and force an M199 on laser off.
+1.51 Prevent duplicate G0G28Z0 in end of program if G0G28Z0 also used between subs
+1.52 fix coordinate issue in SKU routine (on sheet cut pos xy)
+1.53 Another look at SKU cutting coords
+1.54 Another another look at SKU Coords
+1.55 Add a Repierce column to the xls to define a different pierce routine if already pierced #47259
+1.56 Add a few options to accomodate older LVP machines
+1.57 Add Nozzle clean option
+1.58 Make number of decimal digits in material thickness an option #47469
+1.59 Put a site-modified CFF option back into the standard CFF #47469
+1.60 remove customer customisation from main post
+1.61 Add Linenumber and G code formatting options
+1.62 Add logical test for M199 in end of program #48809
+1.63 Remove unnecessary logic to suppress M199 at end of sub if last profile on prog #48838
+1.64 Add option to raise head (M199) after scribe
+1.65 Add option to raise between parts as well
+1.66 Extend M199 for all laser off to include punch processes
+1.67 Split G0G40G28X0Y0 into two separate blocks, G0G40 and G28X0Y0 #48622
+1.68 Stop pierce at positions that have already been cut when CLC used #50408
+1.69 Add raise option at the end of each scribe, rather than waiting until scribe done #50752
+1.70 Consider Zeropts in Onsheet and Offsheet test #51048
+1.71 Use Unit vectors in preference to trig for offsheet calcs
+1.72 Make 7000 to 10000 a reserved range for program numbers, rather than having 7000 as an upper limit. #51553
+1.73 Allow the extensions at the top and right of the sheet (ie the "free" edges) to be overridden when doing a crop #52613
+1.74 Ensure that we never cut into a part when allowing for the height sensing diameter #52614
+1.75 Re-jig the locking of head height when cutting off sheet #53016
+1.76 Support Scheduling system by optimising mitsubishi subroutine numbering #53369
+1.77 Allow purge macro to be configurable #54261
+1.78 Allow scheduling to be switched on or off #54014
+1.79 AHC events from PN should never affect nc code #52425
+1.80 Remove the logic that makes the head go back on sheet and issue M75 prior to turning off - it was unnecessary #52425
+1.81 Add additional strategy for starting an offsheet cutting #52425
+1.82 Add 2 more options for Condition variables #55028
+1.83 Remove Kerf:=0.0s from code #54739
+1.84 Add option for program number formatting + remove redundant motion at end of sub #55262
+1.85 Re-factor mitsubishi header information sections into one strucutre #55689
+1.86 Re-factor kerf behavior as it only works in one way #53991
+1.87 Fix Kerf OFF also the G28Z0 at the end of the program #56575
+1.88 Fix first G40 when a skeleton / crop cutting and add auto gas change M352 output option #56654
+1.89 add an option to discount SCU and crop cuts from part count #56695
+1.90 Add M750 / M751 when not using subroutines and using remote 360 #56695
+1.91 Move the M200 output to just after the M352 also add Dual machine process #57161
+1.92 Add the option for outputting just a G28Z0 at the start of a program. Move the G28 start/end options to the first page of options #56654
+1.93 Add new header option 101 - 112 #58337
+1.94 Add Sheet size to remote 360 header #58337
+1.95 Enforce DP for Sheetsize #58337
+[MAIN]
+// 0 => Don't use BND comments
+// 1 => Use BND comments
+// 2 => Use CONT# numbers
+$CONFIGUSEBND:='NSETTING(CFF Options,UseBND)
+
+// 0 => Use M121 to turn the laser off
+// 1 => Use M87 to turn the laser off
+// 2 => Use M87 for Off, M121 for Off & Up
+// 3 => Use PP file selection (2 columns, M87 OFF and M121 OFF)
+$CONFIGUSEM87OFF:='NSETTING(CFF Options,LaserOff)
+
+// 0 => Use K value with kerf amount 
+// 1 => Use D value with G41/G42
+// 2 => Don't include anything with G41/G42
+// 3 => Use Kerf value as D value (typically used with NestMaster, older TurboNest)
+$CONFIGUSEDVALUE:= 'NSETTING(CFF Options, Mitsubishi D Word Setting)
+
+// 0 => No G61/G64 codes
+// 1 => Include G61/G64 exact stop codes based on angle change at end of motion
+// 2 => Use G09 for exact stop check on each occurance
+// 3 => Same as 2 in parentheses
+// 4 => Use G04(X<seconds>) (all profiles)
+// 5 => Use G04(X<seconds>) (leads only)
+$CONFIGUSEEXACTSTOPCHECK:='NSETTING(CFF Options,Exact Stop Check)
+
+// 0 => Start of Profile line numbers are on lines by themselves
+// 1 => Start of Profile line numbers are on the process on rapid motion line
+$CONFIGSOPLINENOLOCATION:=1
+
+// 0 => Include G00/G01/G02/G03 on every motion line
+// 1 => Suppress repeated G00/G01/G02/G03 codes
+$CONFIGUSEMODALMOTIONCODES:=0
+
+// 0 => Include X and Y on every motion line
+// 1 => Suppress duplicate X, Y codes
+// 2 => Include X and Y on all rapid motion, suppress on cutting motion
+
+// CONFIGAHCISON can start out as 0, 1, 2, or 3
+// 0 => implies that AHC defaults at start of program to off
+// 1 => implies that AHC defaults at start of program to on
+// 2 => implies that an AHC code should be used at the start in any case
+// 3 => No AHC codes
+// In most cases, 1 or 3 are the only usable choices.
+$CONFIGAHCISON:=3
+
+// 0 => Normal behavior, PROCESS ON MOTION called from OUTPUT START ___ PROFILE
+// 1 => Delayed behavior, PROCESS ON MOTION called from OUTPUT ___ ON
+$CONFIGDELAYPROCESSONMOTION:=0
+
+// 0 => I, J are absolute if X, Y are absolute, otherwise incremental
+// 1 => I, J are always incremental
+// 2 => Use R instead of I, J.  Set QUAD ARCS section to 3 to use this
+$CONFIGIJALWAYSINCREMENTAL:=1
+
+// 0 => CUT OFF, CUT OFFUP are as normal
+// 1 => At end of exterior profiles, skeleton cuts, and Crop cuts, always use OFFUP
+$CONFIGFORCEEXTERIORTOOFFUP:=0
+
+// Set a Zero point.  By default, use $INITPTX, $INITPTY, which is where the
+// starting point is located.  ZEROPT_ allows setting a zero point separate
+// from the initial point.  To start the head out in the upper left of the
+// sheet, with all dimensions in absolute from the lower left, set the init
+// point in PN to the upper left, and use $ZEROPTX:=$SHEETMINX and
+// $ZEROPTY:=$SHEETMINY
+$ZEROPTX := $INITPTX
+$ZEROPTY := $INITPTY
+
+//Configure Height sensor distance value
+$HEIGHTSENSEDISTANCE:='NSetting(CFF Options, Height sensor distance)
+
+// The offsheet extension override when cutting off the sheet edge at the top or right in a crop cut (SCU allows for separate extensions to be specified at each edge)
+// We allow the top / right to be treated differently since if the sheet isn't cut to exactly nominal, then these are the edges that will be "wrong" and potentially need larger extensions
+$OVERRIDEOFFSHEETEXTENSION:='NSetting(CFF Options, Override offsheet extensions)
+
+//some machines don't want () in the header after tool calls
+//eg. #104=104 instead of #104=104() -default is 1, on
+$USEPARENTHESESONCCCALLS:='NSetting(CFF Options, Parentheses after cut conditions)
+$MACHINE2USEPARENTHESESONCCCALLS:='NSetting(CFF Options, Machine 2 Parentheses after cut conditions)
+
+//Some machines seemingly don't need kerf (Cutter Comp lines)
+$OUTPUTCUTTERCOMPLINES:='NSetting(CFF Options, Output Cutter Comp Lines)
+
+$AHCISON := $CONFIGAHCISON
+$ORIGLINENUMBER:=$LINENUMBER
+
+//set the reserved range for subs and prog nums
+$PROGNUMRESERVEDRANGESTART:='NSetting(CFF Options, reserved range lower)
+$PROGNUMRESERVEDRANGEEND:='NSetting(CFF Options, reserved range upper)
+
+//set the sub address to the desired value if not using the scheduling system
+IF $SUBROUTINETYPE!=NONE && 'NSetting(CFF Options, Scheduling System) = 1
+	//Set program number to Address
+	$PROGRAMNUMBER := $ADDRESS
+	
+	//Increment address for the first sub on a part
+	$ADDRESS := $PROGRAMNUMBER + 1
+ELSE
+	//INITIALIZE program number to prog + nest
+	$PROGRAMNUMBER := $PROGRAMNUMBER + $NESTNUMBER
+END
+
+//Dual MACHINE
+$MACHINE1NAME:='SSetting(CFF Options, Machine 1 ID)
+$MACHINE2NAME:='SSetting(CFF Options, Machine 2 ID)
+
+{START OF FILE}
+{DRY RUN ON}
+{OUTPUT PROFILES}
+{DRY RUN OFF}
+{HEADER INFO}
+{RESET VARIABLES}
+IF $SINGLE_PART_OUTPUT=TRUE
+  $ADDRESS:=$PROGRAMNUMBER
+END
+
+//if the sub start number >0 and we are not using the scheduling system then assign address to sub start number 
+IF 'NSetting(CFF Options, Subs Start Number) > 0 && 'NSetting(CFF Options, Scheduling System) = 0
+	$ADDRESS := 'NSetting(CFF Options, Subs Start Number)
+END
+
+IF $SUBROUTINETYPE!=NONE && $SINGLE_PART_OUTPUT=FALSE
+  {BUILD SUBROUTINE LIST}
+END
+{RESET VARIABLES}
+{PROGRAM INIT}
+//{VALIDATE PLATE}
+IF $SUBROUTINETYPE!=NONE && $SINGLE_PART_OUTPUT=FALSE
+  {OUTPUT SUBROUTINE CALLS}
+ELSE
+  {OUTPUT PROFILES}
+END
+{END OF PROGRAM}
+IF $SUBROUTINETYPE!=NONE && $SINGLE_PART_OUTPUT=FALSE
+  {OUTPUT SUBROUTINES}
+END
+
+{END OF FILE}
+[SECTION PART OF THE CFF]
+
+[START OF FILE]
+IF 'NSETTING(CFF Options,PercentAtStart)=1
+  %
+END
+IF 'NSETTING(CFF Options,PercentAtStart)=2 && $NESTNUMBER=0
+  %
+END
+
+[PLP INFO LINE]
+// The next line might need comment characters adjusted if you're using the part list
+{LINENO :M}(PART#:{ROOT PART NAME} QTY {PART QUANTITY ON NEST})
+
+[ROOT PART NAME]
+// ROOT PART NAME is the part file name without path (used only in PLP INFO LINE)
+ARGUMENT=$ROOTPARTNAME
+FORMAT=%s
+
+[PART QUANTITY ON NEST]
+// Number of times this part occurs on this nest (used only in PLP INFO LINE)
+ARGUMENT=$PARTQUANTITYONNEST
+FORMAT=%d
+
+[RESET VARIABLES]
+$PROCESS:=DEFAULT
+$PROCESS:=DEFAULT
+$X:=$INITPTX
+$Y:=$INITPTY
+$X:=$INITPTX
+$Y:=$INITPTY
+$ZEROPTX:=$INITPTX
+$ZEROPTY:=$INITPTY
+$LINENUMBER:=$ORIGLINENUMBER
+$AHCISON := $CONFIGAHCISON
+$KERFSTATUS:=40
+$FEEDRATE:=0.0
+$AHC:=ON
+$CUTCONDITION:=0
+$CUTCONDITION:=$CUTCONDITION
+$BND:=0
+$OUTPUTTIMER:=1
+$CUTTINGDISTANCE:=0.0
+$CUTCONDTOGGLE := 0
+$NOZZLECLEANCODE := 'SSETTING(CFF Options,NozzleCleanCode)
+$HEADSTATUS:=$HEADUP
+$KERFSTATUS:=0
+$KERFDIR:=OFF
+$PREKERFED:=0
+$PARTSTARTENDCODE := 0
+$MACHINE :=1
+
+[HEADER INFO]
+IF 'NSETTING(CFF Options,HeaderStyle) = 0
+	O{PROGRAM NUMBER}({ROOT FILE NAME})
+	(MATERIAL: {MATERIAL THICKNESS} {MATERIAL NAME})
+	(LENGTH: {SHEET X})
+	(WIDTH: {SHEET Y})
+	IF $SINGLE_PART_OUTPUT=TRUE
+		(SINGLE PART NEST)
+	ELSE
+	  (NEST {NEST NUMBER} OF {NUMBER OF NESTS})
+	END
+		
+ELSEIF 'NSETTING(CFF Options,HeaderStyle) = 1	
+	O{PROGRAM NUMBER}({ROOT FILE NAME})
+	{RESERVED RANGE MESSAGE}
+	(JOB#: {WORK ORDER NAME}-{NEST NUMBER})
+	(CUSTOMER: {CUSTOMER NAME})
+	(PART TOTAL: {TOTAL PARTS})
+	(SHEET-SIZE {SHEET X XY FORMAT :Z}*{SHEET Y XY FORMAT :Z})
+	(CUT NUMBER OF TIMES: {CUT NUMBER OF TIMES})
+	(EST TIME: {PRODUCTION TIME})
+	(DUE: {DATE})
+	IF 'NSETTING(CFF Options, Output Cutting Distance) = 0
+		(TOTAL CUTTING IN: {TOTAL CUTTING DISTANCE})
+	END
+	
+	(Programmer: {PROGRAMMER})
+ELSE
+	O{PROGRAM NUMBER}
+	(FILE: {ROOT FILE NAME})
+	(MATL: {MATERIAL CODE})
+	(STCK: raw_stock_no)
+	(SHEET-SIZE {SHEET X XY FORMAT :Z}*{SHEET Y XY FORMAT :Z})
+	(USED: {MAX X}X{MAX Y})
+	(PRTS: {TOTAL PARTS})
+	(DATE: {DATE})
+END
+{RESERVED RANGE MESSAGE}
+//because the post does multiple passes ensure this is set correctly
+$COUNTERI := 1
+$NUMCOMMENTS := 'NSETTING(CFF Options, Number of comments)
+
+LOOPWHILE $COUNTERI <= $NUMCOMMENTS
+	$COMMENT := 'SPROMPT(Enter Comment)
+	{COMMENT LINE}
+	$COUNTERI := $COUNTERI + 1
+LOOPEND
+
+//if we're outputting to multiple machines...
+IF 'NSETTING(CFF Options, Dual Machine Output) > 0
+	|({MACHINE 1 NAME} -- {MACHINE 2 NAME} LASER CONFIGURATION)
+	(MACHINE SELECTION 614 0={MACHINE 1 NAME} 1={MACHINE 2 NAME})
+	
+	|GOTO[9000+#614]
+
+	|N9000
+	//Set machine to 1
+	$MACHINE :=1
+	|({MACHINE 1 NAME} HEADER)
+	{OUTPUT MITS VARIABLES}
+	{OUTPUT CUTTER COMP}
+	|(SET M100 FOR -{MACHINE 1 NAME})
+	{M100 LINE}
+	|GOTO9002
+	
+	|N9001
+	//set the machine to 2 and output its header
+	$MACHINE :=2
+	|({MACHINE 2 NAME} HEADER)
+	{OUTPUT MITS VARIABLES}	
+	{OUTPUT CUTTER COMP}
+	|(SET M100 FOR -{MACHINE 2 NAME})
+	{MACHINE 2 M100 LINE}
+	IF 'NSETTING(CFF Options, PrepSubCallMC2) = 1
+ 		M98P8999
+	END
+	|N9002
+ELSE
+	$MACHINE :=1
+	{OUTPUT MITS VARIABLES}
+	{OUTPUT CUTTER COMP}
+END
+
+{DO REST OF HEADER}
+
+[PROGRAM INIT]
+$CUTCONDTOGGLE := 0
+
+[OUTPUT MITS VARIABLES]
+{INITIALIZE CUT PARAMETERS}
+	// Mitsubishi Condition variable options
+	// They may seem out of order but remember they have been progressively developed and expanded
+	// 0 = no variables
+	// 1 = #101 ~ #110
+	// 2 = #101 ~ #117
+	// 3 = #197 ~ #198 only - differs slightly from High Speed variables setting (includes a gas change)
+	// 4 = #101 ~ #111
+	// 5 = #107 ~ #111
+	// 6 = #106 ~ #112
+	// 7 = #101 ~ #112 (#105 = 106)
+	// 8 = #108 ~ #112
+IF 'NSETTING(CFF Options, condition variables setting) > 0 && 'NSETTING(CFF Options, condition variables setting) != 3
+	|(CONDITION-VARIABLES)
+		
+	IF 'NSETTING(CFF Options, condition variables setting) < 5
+		IF $MACHINE = 1
+			#101=101{CC101 :M}
+			#102=102{CC102 :M}
+			#103=103{CC103 :M}
+			#104=104{CC104 :M}
+			#105=105{CC105 :M}
+			#106=106{CC106 :M}
+		ELSE
+			#101=101{MC2CC101 :M}
+			#102=102{MC2CC102 :M}
+			#103=103{MC2CC103 :M}
+			#104=104{MC2CC104 :M}
+			#105=105{MC2CC105 :M}
+			#106=106{MC2CC106 :M}
+		END
+	END
+	
+	IF 'NSETTING(CFF Options, condition variables setting) = 6
+		IF $MACHINE = 1
+			#106=106{CC106 :M}
+		ELSE
+			#106=106{MC2CC106 :M}
+		END
+	END
+	
+	IF 'NSETTING(CFF Options, condition variables setting) = 7
+		IF $MACHINE = 1
+			#101=101{CC101 :M}
+			#102=102{CC102 :M}
+			#103=103{CC103 :M}
+			#104=104{CC104 :M}
+			#105=106{CC106 :M}
+			#106=107{CC107 :M}
+			#108=109{CC109 :M}
+			#109=110{CC110 :M}
+			#110=111{CC111 :M}
+			#111=112{CC112 :M}
+		ELSE
+			#101=101{MC2CC101 :M}
+			#102=102{MC2CC102 :M}
+			#103=103{MC2CC103 :M}
+			#104=104{MC2CC104 :M}
+			#105=106{MC2CC106 :M}
+			#106=107{MC2CC107 :M}
+			#108=109{MC2CC109 :M}
+			#109=110{MC2CC110 :M}
+			#110=111{MC2CC111 :M}
+			#111=112{MC2CC112 :M}
+		END
+	END
+	
+	IF 'NSETTING(CFF Options, condition variables setting) < 7
+		//core variables they all seem to use (if they use them)
+		IF $MACHINE = 1
+			#107=107{CC107 :M}
+			#108=108{CC108 :M}
+			#109=109{CC109 :M}
+			#110=110{CC110 :M}
+		ELSE
+			#107=107{MC2CC107 :M}
+			#108=108{MC2CC108 :M}
+			#109=109{MC2CC109 :M}
+			#110=110{MC2CC110 :M}	
+		END
+	END
+	
+	IF 'NSETTING(CFF Options, condition variables setting) = 8
+		IF $MACHINE = 1
+			#108=108{CC108 :M}
+			#109=109{CC109 :M}
+			#110=110{CC110 :M}
+			#111=111{CC111 :M}
+			#112=112{CC112 :M}
+		ELSE
+			#108=108{MC2CC108 :M}
+			#109=109{MC2CC109 :M}
+			#110=110{MC2CC110 :M}
+			#111=111{MC2CC111 :M}
+			#112=112{MC2CC112 :M}		
+		END
+	END
+	
+	IF 'NSETTING(CFF Options, condition variables setting) = 9
+		IF $MACHINE = 1
+			#101=101{CC101 :M}
+			#102=102{CC102 :M}
+			#103=103{CC103 :M}
+			#104=104{CC104 :M}
+			#105=105{CC105 :M}
+			#106=106{CC106 :M}
+			#107=107{CC107 :M}
+			#108=108{CC108 :M}
+			#109=109{CC109 :M}
+			#110=110{CC110 :M}
+
+		ELSE
+			#101=101{MC2CC101 :M}
+			#102=102{MC2CC102 :M}
+			#103=103{MC2CC103 :M}
+			#104=104{MC2CC104 :M}
+			#105=105{MC2CC105 :M}
+			#106=106{MC2CC106 :M}
+			#107=107{MC2CC107 :M}
+			#108=108{MC2CC108 :M}
+			#109=109{MC2CC109 :M}
+			#110=110{MC2CC110 :M}
+
+		END
+	END
+	
+	IF 'NSETTING(CFF Options, condition variables setting) != 1 && 'NSETTING(CFF Options, condition variables setting) != 8
+		IF $MACHINE = 1
+			#111=111{CC111 :M}
+		ELSE
+			#111=111{MC2CC111 :M}
+		END
+	END
+	
+	IF 'NSETTING(CFF Options, condition variables setting) = 6 || 'NSETTING(CFF Options, condition variables setting) = 9
+		IF $MACHINE = 1
+			#112=112{CC112 :M}
+		ELSE
+			#112=112{MC2CC112 :M}	
+		END
+	END
+	
+	IF 'NSETTING(CFF Options, condition variables setting) = 2
+		IF $MACHINE = 1
+			#112=112{CC112 :M}
+			#113=113{CC113 :M}
+			#114=114{CC114 :M}
+			#115=115{CC115 :M}
+			#116=116{CC116 :M}
+			#117=117{CC117 :M}
+		ELSE
+			#112=112{MC2CC112 :M}
+			#113=113{MC2CC113 :M}
+			#114=114{MC2CC114 :M}
+			#115=115{MC2CC115 :M}
+			#116=116{MC2CC116 :M}
+			#117=117{MC2CC117 :M}		
+		END
+	END
+
+	IF 'NSETTING(CFF Options, sheet xy variables setting) = 1
+		#121={SHEET X}
+		#122={SHEET Y}
+	ELSEIF 'NSETTING(CFF Options, sheet xy variables setting) = 2
+		|(SHEET-SIZE)
+		#612={SHEET X}
+		#613={SHEET Y}
+	END
+	
+	IF 'NSETTING(CFF Options, High Speed variables setting) = 1
+		|(SET-HIGH-SPEED-PARAM)
+		#197=0
+		#198=0
+	END
+
+	IF 'NSETTING(CFF Options, Repierce variables setting) > 0
+		|(Re-pierce dwell)
+		#525=1.0
+	END
+
+	IF 'NSETTING(CFF Options, thickplate variables setting) > 0
+		|(THICK-PLATE-VARIABLES)
+		#502=2.0
+		#503=1.0
+		#504=8.0
+		#505=5.0
+		#506=6.0
+		#507=7.0
+		#508=8.0
+	END
+ELSE
+  IF 'NSETTING(CFF Options, condition variables setting) = 3
+    M98P8999
+    |(HSPEED)
+    #197=0.0
+    #198=0.0
+  END
+END
+
+//{PARAMETER LINE}
+
+[OUTPUT CUTTER COMP]
+IF $OUTPUTCUTTERCOMPLINES = 1
+	|(SET-CUTTER-COMP)
+	IF $MACHINE = 1
+		IF $KERFD1>0
+			{KERF D1}
+		END
+		IF $KERFD2>0
+			{KERF D2}
+		END
+		IF $KERFD3>0
+			{KERF D3}
+		END
+		IF $KERFD4>0
+			{KERF D4}
+		END
+		IF $KERFD5>0
+			{KERF D5}
+		END
+		IF $KERFD6>0
+			{KERF D6}
+		END
+		IF $KERFD7>0
+			{KERF D7}
+		END
+		IF $KERFD8>0
+			{KERF D8}
+		END
+		IF $KERFD9>0
+			{KERF D9}
+		END
+		IF $KERFD10>0
+			{KERF D10}
+		END
+		IF $KERFD11>0
+			{KERF D11}
+		END
+		IF $KERFD12>0
+			{KERF D12}
+		END
+		IF $KERFD13>0
+			{KERF D13}
+		END
+		IF $KERFD14>0
+			{KERF D14}
+		END
+		IF $KERFD15>0
+			{KERF D15}
+		END
+		IF $KERFD16>0
+			{KERF D16}
+		END
+		IF $KERFD17>0
+			{KERF D17}
+		END
+		IF $KERFD18>0
+			{KERF D18}
+		END
+		IF $KERFD19>0
+			{KERF D19}
+		END
+		IF $KERFD20>0
+			{KERF D20}
+		END
+	ELSE
+		//Machine 2 kerf...
+		IF $MC2KERFD1>0
+			{MC2KERF D1}
+		END
+		IF $MC2KERFD2>0
+			{MC2KERF D2}
+		END
+		IF $MC2KERFD3>0
+			{MC2KERF D3}
+		END
+		IF $MC2KERFD4>0
+			{MC2KERF D4}
+		END
+		IF $MC2KERFD5>0
+			{MC2KERF D5}
+		END
+		IF $MC2KERFD6>0
+			{MC2KERF D6}
+		END
+		IF $MC2KERFD7>0
+			{MC2KERF D7}
+		END
+		IF $MC2KERFD8>0
+			{MC2KERF D8}
+		END
+		IF $MC2KERFD9>0
+			{MC2KERF D9}
+		END
+		IF $MC2KERFD10>0
+			{MC2KERF D10}
+		END
+		IF $MC2KERFD11>0
+			{MC2KERF D11}
+		END
+		IF $MC2KERFD12>0
+			{MC2KERF D12}
+		END
+		IF $MC2KERFD13>0
+			{MC2KERF D13}
+		END
+		IF $MC2KERFD14>0
+			{MC2KERF D14}
+		END
+		IF $MC2KERFD15>0
+			{MC2KERF D15}
+		END
+		IF $MC2KERFD16>0
+			{MC2KERF D16}
+		END
+		IF $MC2KERFD17>0
+			{MC2KERF D17}
+		END
+		IF $MC2KERFD18>0
+			{MC2KERF D18}
+		END
+		IF $MC2KERFD19>0
+			{MC2KERF D19}
+		END
+		IF $MC2KERFD20>0
+			{MC2KERF D20}
+		END
+	END
+END
+
+[DO REST OF HEADER]
+IF 'NSETTING(CFF Options, 3002 variable setting) = 1
+	|(TIMER)
+	{LINENO :M}#3002=0
+END	
+IF $VALIDATEPLATE = TRUE
+  #140={SHEET X}
+  #141={SHEET Y}
+  M98P9502
+END
+// if dual machine output we already have the M100 line
+IF 'NSETTING(CFF Options, Dual Machine Output) = 0
+	{M100 Line}
+END
+
+IF 'NSetting(CFF Options,include edge det line)=1
+	M98P7995H#149(EDGE DET=1,NO EDGE-DET=2)
+
+	IF 'NSetting(CFF Options,Parentheses after edge det line)=1
+		()
+	END
+END
+
+IF 'NSetting(CFF Options, AutoGasControlOnly) = 1
+    |(GAS CHANGE)
+	{LINENO :M}M352
+END
+IF 'NSetting(CFF Options,M200) = 1
+	{LINENO :M}M200|
+END
+
+{LINENO :M}M66
+
+IF $SINGLE_PART_OUTPUT=FALSE && 'NSetting(CFF Options,StartNestHome) > 0
+	IF 'NSetting(CFF Options,StartNestHome)!=2
+		{LINENO :M}G28Z0
+	END
+
+	IF 'NSetting(CFF Options,StartNestHome) != 3
+  {LINENO :M}G28X0Y0
+END
+END
+{MODE}
+
+IF $USELINENUMBERS = STARTOFPROFILE
+	GOTO1
+END
+
+IF 'NSetting(CFF Options,G52) = 1
+	{LINENO :M}G52X#610Y#611
+ELSEIF 'NSetting(CFF Options,G52) = 2
+	{LINENO :M}G52X0Y0
+END
+
+{RESET PARAMETERS}
+$CUTCONDITION:=0
+$CUTCONDITION:=$CUTCONDITION
+$CUTTINGDISTANCE:=0.0
+
+[M100 LINE]
+//Just M100, nothing else
+IF 'NSetting(CFF Options,M100)=3
+		{LINENO :M}M100
+ELSEIF $M100THICKNESS>0 || $M100NAME!=none
+	IF 'NSetting(CFF Options,M100)=0
+		IF 'NSetting(CFF Options,M100 Thickness)>0
+			{LINENO :M}M100[{MATERIAL NAME},{MATERIAL THICKNESS :Z}]
+		ELSE
+			{LINENO :M}M100[{MATERIAL NAME}]
+		END
+	END
+  
+	IF 'NSetting(CFF Options,M100)=1
+		IF 'NSetting(CFF Options,M100 Thickness)>0
+			{LINENO :M}(M100[{MATERIAL NAME},{MATERIAL THICKNESS :M :Z}])
+		ELSE
+			{LINENO :M}(M100[{MATERIAL NAME}])
+		END
+	END
+END
+
+IF 'NSetting(CFF Options,Parentheses after m100)=1 && 'NSetting(CFF Options,M100)!=2
+	()
+END
+
+//called when using dual machine
+[MACHINE 2 M100 LINE]
+//Just M100, nothing else
+IF 'NSetting(CFF Options,Machine 2 M100)=3
+		|N9001 M100
+ELSEIF $MACHINE2M100THICKNESS>0 || $MACHINE2M100NAME!=none
+	IF 'NSetting(CFF Options,Machine 2 M100)=0
+		IF 'NSetting(CFF Options,Machine 2 M100 Thickness)>0
+			M100[{MACHINE 2 MATERIAL NAME},{MATERIAL THICKNESS :Z}]
+		ELSE
+			M100[{MACHINE 2 MATERIAL NAME}]
+		END
+	END
+  
+	IF 'NSetting(CFF Options,Machine 2 M100)=1
+		IF 'NSetting(CFF Options,Machine 2 M100 Thickness)>0
+			(M100[{MACHINE 2 MATERIAL NAME},{MATERIAL THICKNESS :M :Z}])
+		ELSE
+			(M100[{MACHINE 2 MATERIAL NAME}])
+		END
+	END
+END
+
+IF 'NSetting(CFF Options,Machine 2 parentheses after m100)=1 && 'NSetting(CFF Options,Machine 2 M100)!=2
+	()
+END
+
+[TOTAL CUTTING DISTANCE]
+ARGUMENT = $CUTTINGDISTANCE
+FORMAT=%0.0f
+
+[PROGRAMMER]
+ARGUMENT='SSETTING(CFF Options,Programmer)
+FORMAT=%s
+
+[COMMENT LINE]
+ARGUMENT=$COMMENT
+FORMAT=(%s)
+
+[PARAMETER LINE]
+IF $CUTCONDITION!=$LASTCUTCONDITION && $CUTCONDITION>0
+  IF $CUTCONDITION=101
+    $CC101:=1
+    $MC2CC101:=1
+  END
+  IF $CUTCONDITION=102
+    $CC102:=1
+    $MC2CC102:=1
+  END
+  IF $CUTCONDITION=103
+    $CC103:=1
+    $MC2CC103:=1
+  END
+  IF $CUTCONDITION=104
+    $CC104:=1
+    $MC2CC104:=1
+  END
+  IF $CUTCONDITION=105
+    $CC105:=1
+    $MC2CC105:=1
+  END
+  IF $CUTCONDITION=106
+    $CC106:=1
+    $MC2CC106:=1
+  END
+  IF $CUTCONDITION=107
+    $CC107:=1
+    $MC2CC107:=1
+  END
+  IF $CUTCONDITION=108
+    $CC108:=1
+    $MC2CC108:=1
+  END
+  IF $CUTCONDITION=109
+    $CC109:=1
+    $MC2CC109:=1
+  END
+  IF $CUTCONDITION=110
+    $CC110:=1
+    $MC2CC110:=1
+  END
+  IF $CUTCONDITION=111
+    $CC111:=1
+    $MC2CC111:=1
+  END
+  IF $CUTCONDITION=112
+    $CC112:=1
+    $MC2CC112:=1
+  END
+  IF $CUTCONDITION=113
+    $CC113:=1
+    $MC2CC113:=1
+  END
+  IF $CUTCONDITION=114
+    $CC114:=1
+    $MC2CC114:=1
+  END
+  IF $CUTCONDITION=115
+    $CC115:=1
+    $MC2CC115:=1
+  END
+  IF $CUTCONDITION=116
+    $CC116:=1
+    $MC2CC116:=1
+  END
+  IF $CUTCONDITION=117
+    $CC117:=1
+    $MC2CC117:=1
+  END
+  ARGUMENT=$CUTCONDITION
+  
+	IF 'NSETTING(CFF Options,Cut Condition Code) = 0 || ('NSETTING(CFF Options,Cut Condition Code) = 1 && $CUTCONDTOGGLE = 0)
+		FORMAT={LINENO :M}#501=#%d
+		$CUTCONDTOGGLE := 1
+	ELSE
+		FORMAT=M%d
+	END
+END
+$CUTCONDITION:=$CUTCONDITION
+
+[CC101]
+IF $CC101=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC102]
+IF $CC102=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC103]
+IF $CC103=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC104]
+IF $CC104=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC105]
+IF $CC105=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC106]
+IF $CC106=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC107]
+IF $CC107=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC108]
+IF $CC108=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC109]
+IF $CC109=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC110]
+IF $CC110=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC111]
+IF $CC111=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC112]
+IF $CC112=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC113]
+IF $CC113=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC114]
+IF $CC114=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC115]
+IF $CC115=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC116]
+IF $CC116=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[CC117]
+IF $CC117=1 && $USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+//Machine 2
+[MC2CC101]
+IF $MC2CC101=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC102]
+IF $MC2CC102=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC103]
+IF $MC2CC103=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC104]
+IF $MC2CC104=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC105]
+IF $MC2CC105=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC106]
+IF $MC2CC106=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC107]
+IF $MC2CC107=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC108]
+IF $MC2CC108=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC109]
+IF $MC2CC109=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC110]
+IF $MC2CC110=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC111]
+IF $MC2CC111=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC112]
+IF $MC2CC112=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC113]
+IF $MC2CC113=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC114]
+IF $MC2CC114=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC115]
+IF $MC2CC115=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC116]
+IF $MC2CC116=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[MC2CC117]
+IF $MC2CC117=1 && $MACHINE2USEPARENTHESESONCCCALLS = 1
+  ()
+END
+
+[WORK ORDER NAME]
+	IF 'TEXTLEN($WORKORDERNAME)>0
+		ARGUMENT=$WORKORDERNAME
+		FORMAT=%s
+	ELSE
+		None
+	END
+
+[CUSTOMER NAME]
+	ARGUMENT=$CUSTOMER_NAME
+	FORMAT=%s
+
+[TOTAL PARTS]
+	ARGUMENT=$PARTCOUNT
+	FORMAT=%d
+
+[CUT NUMBER OF TIMES]
+	ARGUMENT=$CUTNUMBEROFTIMES
+	
+[PRODUCTION TIME]
+	ARGUMENT=$PRODUCTIONTIME*60
+	FORMAT=%0.1f
+
+[UNITS]
+// Common G codes for units are G70 or G20 for inch and G71 or G21 for metric
+IF $UNITS=INCH
+	{LINENO :M}G70
+ELSE
+	{LINENO :M}G71
+END
+
+[MODE]
+IF $MODE=ABSOLUTE
+  
+  IF 'NSETTING(CFF Options,G92)=0
+    {LINENO :M}G90
+  ELSEIF 'NSETTING(CFF Options,G92)=1
+    {LINENO :M}G90G92{INITPTX}{INITPTY}
+  ELSEIF 'NSETTING(CFF Options,G92)=2
+    {LINENO :M}G90G92X#610Y#611
+  ELSEIF 'NSETTING(CFF Options,G92)=3
+    {LINENO :M}G90
+	{LINENO :M}G92{INITPTX}{INITPTY}
+  END
+ELSE
+	{LINENO :M}G91
+END
+
+[QUAD ARCS]
+// 0 - Leave arcs as-is
+// 1 - Split at quadrant boundaries
+// 2 - Split at 180, 360
+// 3 - Split arcs >180 in half. (required if using R codes on arcs)
+0
+
+[CNC NAME]
+// CNC File name with path and extension
+ARGUMENT=$FILENAME
+FORMAT=%s
+
+[ROOT FILE NAME]
+// CNC file name without path or extension
+ARGUMENT=$ROOTFILENAME
+FORMAT=%s
+
+[CNC FILE NAME EXT]
+// CNC File name extension with .
+ARGUMENT=$FILEEXT
+FORMAT=%s
+
+[MACHINE NAME]
+// Name of the CFG file being used
+ARGUMENT=$MACHINENAME
+FORMAT=%s
+
+[PROGRAM NUMBER]
+IF $PROGRAMNUMBER >= $PROGNUMRESERVEDRANGESTART && $PROGRAMNUMBER <= $PROGNUMRESERVEDRANGEEND
+	
+	IF 'NSETTING(CFF Options, Subs reserved range behavior) = 0
+		ARGUMENT=$PROGRAMNUMBER + ($PROGNUMRESERVEDRANGEEND - $PROGNUMRESERVEDRANGESTART)+1
+	ELSE
+		ARGUMENT=$PROGRAMNUMBER - $PROGNUMRESERVEDRANGESTART + 1
+	END
+	$PROGNUMCHANGED := 1
+ELSE
+	ARGUMENT=$PROGRAMNUMBER
+END
+//either format like n or nnnn
+IF 'NSETTING(CFF Options, ProgramNumberFormat) = 1
+	FORMAT=%d
+ELSE
+	FORMAT=%04d
+END
+
+[DATE]
+ARGUMENT=$DATE
+FORMAT=%s
+
+[TIME]
+ARGUMENT=$TIME
+FORMAT=%s
+
+[MATERIAL THICKNESS]
+IF $M100THICKNESS>0
+	ARGUMENT=$M100THICKNESS
+ELSE
+	ARGUMENT=$MATERIALTHICKNESS * $CONVERSION
+END
+FORMAT={Z FORMAT}
+
+[MATERIAL DENSITY]
+// Not sure if conversion is needed here (maybe not, maybe single, double or triple)
+ARGUMENT=$MATERIALDENSITY
+FORMAT={DIMENSION DISPLAY FORMAT}
+
+[SHEET WEIGHT]
+IF $UNITS=INCH
+  ARGUMENT=$SHEETWEIGHT
+ELSE
+  ARGUMENT=$SHEETWEIGHT * 0.45359237
+END
+FORMAT={XY FORMAT}
+
+[WEIGHT UNITS]
+IF $UNITS=INCH
+  LBS
+ELSE
+  KG
+END
+
+[SHEET DESCRIPTION]
+ARGUMENT=$SHEET_DESCRIPTION
+FORMAT=%s
+
+[MATERIAL NAME]
+IF $M100NAME=none
+	ARGUMENT=$MATERIALNAME
+ELSE
+	ARGUMENT=$M100NAME
+END
+FORMAT=%s
+
+[MATERIAL CODE]
+ARGUMENT=$MATERIALCODE
+FORMAT=%s
+
+[MACHINE 2 MATERIAL NAME]
+IF $MACHINE2M100NAME=none
+	ARGUMENT=$MATERIALNAME
+ELSE
+	ARGUMENT=$MACHINE2M100NAME
+END
+FORMAT=%s
+
+[MACHINE 1 NAME]
+ARGUMENT=$MACHINE1NAME
+FORMAT=%s
+
+[MACHINE 2 NAME]
+ARGUMENT=$MACHINE2NAME
+FORMAT=%s
+
+[NIF NAME]
+// Name of the NIF file being output
+ARGUMENT=$NIFNAME
+FORMAT=%s
+
+[NEST CLASS]
+ARGUMENT=$NEST_CLASS
+FORMAT=%s
+
+[NEST NUMBER]
+ARGUMENT=$NESTNUMBER+1
+FORMAT=%d
+
+[NUMBER OF NESTS]
+ARGUMENT=$NUMBER_OF_NESTS
+FORMAT=%d
+
+[TIMES TO RUN]
+ARGUMENT=$CUTNUMBEROFTIMES
+FORMAT=%d
+
+[SHEET X]
+ARGUMENT=$SHEETX * $CONVERSION
+FORMAT={DIMENSION DISPLAY FORMAT}
+
+[SHEET Y]
+ARGUMENT=$SHEETY * $CONVERSION
+FORMAT={DIMENSION DISPLAY FORMAT}
+	
+[SHEET X XY FORMAT]
+ARGUMENT=$SHEETX * $CONVERSION
+FORMAT={XY FORMAT}
+
+[SHEET Y XY FORMAT]
+ARGUMENT=$SHEETY * $CONVERSION
+FORMAT={XY FORMAT}
+	
+[MAX X]
+ARGUMENT=$MAXX * $CONVERSION
+FORMAT={XY FORMAT}
+
+[MAX Y]
+ARGUMENT=$MAXY * $CONVERSION
+FORMAT={XY FORMAT}
+		
+[FLYCUT OFF]
+IF {PRONEST 13}
+	$PROFILEISFLYCUT = TRUE && $PROFILEENDFLYCUTGRID = TRUE
+ELSE
+	1=0
+END
+	
+[FLYCUT ON]
+IF {PRONEST 13}
+	$PROFILEISFLYCUT = TRUE && $PROFILESTARTFLYCUTGRID = TRUE
+ELSE
+	1=0
+END
+
+[NOT IN FLYCUT]
+IF {PRONEST 13}
+	$PROFILEISFLYCUT = FALSE
+ELSE
+	1=1
+END
+
+[IN FLYCUT]
+IF {PRONEST 13}
+	$PROFILEISFLYCUT = TRUE
+ELSE
+	1=0
+END
+
+[STEP AND REPEAT START]
+{LINENO :M}G97
+
+[STEP AND REPEAT END]
+{LINENO :M}G98
+
+[VALIDATE PLATE]
+// No longer used
+IF $VALIDATEPLATE = TRUE
+  // Note that X and Y both need to be set each at each step for incremental
+  // output to work correctly.
+  // To output validate plate motions to only the nested area instead of the
+  // entire plate, change $SHEETMINX to $MINX, $SHEETMAXX to $MAXX,
+  // $SHEETMINY to $MINY, and $SHEETMAXY to $MAXY throughout this section
+	$X := $INITPTX
+	$Y := $INITPTY
+	IF $INITPTLOCATION = LOWERLEFT
+		$X := $SHEETMAXX
+		$Y := $SHEETMAXY
+	ELSE
+		IF $INITPTLOCATION = LOWERRIGHT
+			$X := $SHEETMINX
+			$Y := $SHEETMAXY
+		ELSE
+			IF $INITPTLOCATION = UPPERRIGHT
+				$X := $SHEETMINX
+				$Y := $SHEETMINY
+			ELSE
+				$X := $SHEETMAXX
+				$Y := $SHEETMINY
+			END
+		END
+	END
+	{RAPID MOTION}
+	IF $INITPTLOCATION = LOWERLEFT
+		$X := $SHEETMINX
+		$Y := $SHEETMINY
+	ELSE
+		IF $INITPTLOCATION = LOWERRIGHT
+			$X := $SHEETMAXX
+			$Y := $SHEETMINY
+		ELSE
+			IF $INITPTLOCATION = UPPERRIGHT
+				$X := $SHEETMAXX
+				$Y := $SHEETMAXY
+			ELSE
+				$X := $SHEETMINX
+				$Y := $SHEETMAXY
+			END
+		END
+	END
+	{RAPID MOTION}
+END
+
+[END OF FILE]
+IF 'NSETTING(CFF Options,PercentAtEnd)=1
+  %
+END
+IF 'NSETTING(CFF Options,PercentAtEnd)=2 && $NESTNUMBER+1=$NUMBER_OF_NESTS
+  %
+END
+
+[END OF PROGRAM]
+{CANCEL CURRENT OFFSET}
+
+	IF $RETURNTOINIT=TRUE
+	  
+		IF 'NSETTING(CFF Options,End Of Prog M199 M78)=1
+			IF $HEADSTATUS != $HEADUP
+				{LINENO :M}M199
+			END
+		ELSEIF 'NSETTING(CFF Options,End Of Prog M199 M78)=2
+			{LINENO :M}M78
+		END
+		
+		//prevent duplicate code if also used between subs
+		IF $DIDG28Z0 != 1 && 'NSetting(CFF Options, EndNestHome) = 1
+			{LINENO :M}G0G28Z0
+		END
+		
+		//{RAPID MOTION TO INIT}
+		
+		IF $SINGLE_PART_OUTPUT=FALSE && 'NSetting(CFF Options, EndNestHome) = 1
+			{LINENO :M}G0G40
+			{LINENO :M}G28X0Y0
+		ELSE
+			{RAPID MOTION TO INIT}
+		END
+	ELSE
+		//else cancel kerf with non-motion 
+		$KERFSTATUS:=0
+		
+		IF 'NSETTING(CFF Options,End Of Prog M199 M78)=1
+			IF $HEADSTATUS != $HEADUP
+				{LINENO :M}M199
+			END
+		ELSEIF 'NSETTING(CFF Options,End Of Prog M199 M78)=2
+			{LINENO :M}M78
+		END
+		
+		//prevent duplicate code if also used between subs
+		IF $DIDG28Z0 != 1 && 'NSetting(CFF Options, EndNestHome) = 1
+			{LINENO :M}G0G28Z0
+		END
+		
+		//non motion
+		{RAPID MOTION}
+	END
+
+	IF 'NSETTING(CFF Options,M67 ProgramEndCode) = 1
+		{LINENO :M}M67
+	END
+	
+	IF 'NSETTING(CFF Options, NozzleCleanOnOff) = 1
+		{NOZZLE CLEAN :M}
+	END
+	
+	// When not using subroutines and wanting the remote 360
+	// header also need the output of the M751 at the end of
+	// the program before the M30 / M02 if M750 is still set
+	IF $PARTSTARTENDCODE = 1
+		{LINENO :M}M751
+	END
+	
+	IF 'NSETTING(CFF Options,ProgramEndCode)=0
+		{LINENO :M}M30
+	ELSE
+		{LINENO :M}M02
+	END
+
+[RAPID MOTION TO INIT]
+$X:=$INITPTX
+$Y:=$INITPTY
+
+{RAPID MOTION}
+
+[BND]
+IF $CONFIGUSEBND=1
+  ARGUMENT=$BND
+  FORMAT=|{LINENO :M}(BND:%d)
+  $BND:=$BND+1
+END
+
+[CONT COUNT]
+IF $CONFIGUSEBND=2
+  ARGUMENT=$BND
+  FORMAT=|{LINENO :M}(CONT#%d)
+  $BND:=$BND+1
+END
+
+[OUTPUT START INTERIOR PROFILE]
+// $PREKERFED variable tracks to see if a KERF LEFT or KERF RIGHT CALL is
+// made so kerf off calls can be made only if needed
+IF {NOT IN FLYCUT}
+	{CANCEL CURRENT OFFSET}
+	
+	//If setting is 1 let it come out on the rapid
+	IF ('NSETTING(CFF Options, Mitsubishi Line numbers) = 0 && $CONFIGSOPLINENOLOCATION = 0) || ('NSETTING(CFF Options, Mitsubishi Line numbers) = 1 && $CONFIGSOPLINENOLOCATION = 0 && $CALLINGSUBS = 0)
+		{SOP LINENO 0}
+	END
+	
+	{OUTPUT TORCH SPACING}
+	{ACTIVATE NEXT OFFSET}
+	{BND :M}
+	{CONT COUNT :M}
+	
+	IF $CONFIGDELAYPROCESSONMOTION=0
+	  {PROCESS ON MOTION}
+	ELSE
+	  $SAVEX := $LASTX
+	  $SAVEY := $LASTY
+	  $SAVEX := $X
+	  $SAVEY := $Y
+	END
+	IF $INASUB != 1
+		{PART NAME COMMENT}
+	END
+	$PREKERFED:=1
+	$FORCEOFFUP:=0
+END
+
+[OUTPUT START EXTERIOR PROFILE]
+IF {NOT IN FLYCUT}
+	{CANCEL CURRENT OFFSET}
+	
+	//If setting is 1 let it come out on the rapid
+	IF ('NSETTING(CFF Options, Mitsubishi Line numbers) = 0 && $CONFIGSOPLINENOLOCATION = 0) || ('NSETTING(CFF Options, Mitsubishi Line numbers) = 1 && $CONFIGSOPLINENOLOCATION = 0 && $CALLINGSUBS = 0)
+		{SOP LINENO 0}
+	END
+	
+	{OUTPUT TORCH SPACING}
+	{ACTIVATE NEXT OFFSET}
+	{BND :M}
+	{CONT COUNT :M}
+	
+	IF $CONFIGDELAYPROCESSONMOTION=0
+	  {PROCESS ON MOTION}
+	ELSE
+	  $SAVEX := $LASTX
+	  $SAVEY := $LASTY
+	  $SAVEX := $X
+	  $SAVEY := $Y
+	END
+	IF $INASUB != 1
+		{PART NAME COMMENT}
+	END
+	$PREKERFED:=1
+	$FORCEOFFUP:=$CONFIGFORCEEXTERIORTOOFFUP
+	
+	IF {SKELETON CUT} && $HEADSTATUS = $HEADDOWN
+		//We need to lift the head from the last profile - ensure we output an M199
+		{LINENO :M}M199
+		$HEADSTATUS := $HEADUP
+	END
+END
+
+[OUTPUT START OPEN PROFILE]
+IF {NOT IN FLYCUT}
+	{CANCEL CURRENT OFFSET}
+	
+	//If setting is 1 let it come out on the rapid
+	IF ('NSETTING(CFF Options, Mitsubishi Line numbers) = 0 && $CONFIGSOPLINENOLOCATION = 0) || ('NSETTING(CFF Options, Mitsubishi Line numbers) = 1 && $CONFIGSOPLINENOLOCATION = 0 && $CALLINGSUBS = 0)
+		{SOP LINENO 0}
+	END
+	
+	{OUTPUT TORCH SPACING}
+	{ACTIVATE NEXT OFFSET}
+	{BND :M}
+	{CONT COUNT :M}
+	
+	IF $CONFIGDELAYPROCESSONMOTION=0
+	  {PROCESS ON MOTION}
+	ELSE
+	  $SAVEX := $LASTX
+	  $SAVEY := $LASTY
+	  $SAVEX := $X
+	  $SAVEY := $Y
+	END
+	IF $INASUB != 1
+		{PART NAME COMMENT}
+	END
+	$PREKERFED:=1
+	$FORCEOFFUP:=$CONFIGFORCEEXTERIORTOOFFUP
+END
+
+[OUTPUT START CROP]
+IF {NOT IN FLYCUT}
+	IF $HEADSTATUS = $HEADDOWN
+		//We need to lift the head from the last profile - ensure we output an M199
+		{LINENO :M}M199
+		$HEADSTATUS := $HEADUP
+	END
+	{CANCEL CURRENT OFFSET}
+	
+	//If setting is 1 let it come out on the rapid
+	IF ('NSETTING(CFF Options, Mitsubishi Line numbers) = 0 && $CONFIGSOPLINENOLOCATION = 0) || ('NSETTING(CFF Options, Mitsubishi Line numbers) = 1 && $CONFIGSOPLINENOLOCATION = 0 && $CALLINGSUBS = 0)
+		{SOP LINENO 0}
+	END
+	
+	{OUTPUT TORCH SPACING}
+	{ACTIVATE NEXT OFFSET}
+	{BND :M}
+	{CONT COUNT :M}
+	
+	IF $CONFIGDELAYPROCESSONMOTION=0
+	  {PROCESS ON MOTION}
+	ELSE
+	  $SAVEX := $LASTX
+	  $SAVEY := $LASTY
+	  $SAVEX := $X
+	  $SAVEY := $Y
+	END
+		
+	{PART NAME COMMENT}
+		
+	$PREKERFED:=1
+	$FORCEOFFUP:=$CONFIGFORCEEXTERIORTOOFFUP
+END
+
+[OUTPUT TORCH SPACING]
+IF {TORCH SPACING REQUIRED}
+	IF $NUMTORCHES = 1 || $NUMTORCHES = 0
+		(Set 1 torch.)
+		{OUTPUT MACHINE STOP}
+	ELSE
+		IF $USEAUTOTORCHSPACING = TRUE
+		  // Auto torch spacing commands go here.
+		END
+		(Set {NUMTORCHES} torches at {TORCHSPACING}{TORCHUNITS}.)
+		{OUTPUT MACHINE STOP}
+	END
+END
+
+[OUTPUT END INTERIOR PROFILE]
+
+[OUTPUT END EXTERIOR PROFILE]
+
+[OUTPUT END OPEN PROFILE]
+
+[OUTPUT END CROP]
+
+//We need to lift the head from the last profile - ensure we output an M199
+IF $HEADSTATUS = $HEADDOWN
+	{LINENO :M}M199
+	$HEADSTATUS := $HEADUP
+END
+
+[LINENO]
+MODAL_ARGUMENT=$LINENUMBER
+IF $USELINENUMBERS = EVERYLINE || $CALLINGSUBS = 1
+	{NWORD}
+END
+
+[SOP LINENO 0]
+IF $USELINENUMBERS = STARTOFPROFILE && $CONFIGSOPLINENOLOCATION=0
+	{NWORD}
+END
+
+[SOP LINENO 1]
+IF $USELINENUMBERS = STARTOFPROFILE && $CONFIGSOPLINENOLOCATION=1
+	{NWORD}
+END
+
+[PART NAME COMMENT]
+// Output start of part code at the start of the program
+// when not using subroutines and using the remote 360 header
+IF $SUBROUTINETYPE = NONE && $PARTSTARTENDCODE = 0 && 'NSETTING(CFF Options,HeaderStyle) = 1 && {IGNORE CROP AND SCU CUTS}
+	{LINENO :M}M750
+	$PARTSTARTENDCODE := 1
+END
+$SAVEPARTNAME := $PARTNAME
+$SAVENUM := $PARTSEQUENCENUMBER
+IF $SAVENUM != $LASTSAVENUM || $SAVEPARTNAME != $LASTSAVEPARTNAME
+	
+	IF $HEADSTATUS != $HEADUP && 'NSETTING(CFF Options, M199 Between Parts) = 1
+		{LINENO :M}M199
+		$HEADSTATUS:=$HEADUP
+	END
+	IF {IGNORE CROP AND SCU CUTS}
+		$PARTCOUNT := $PARTCOUNT + 1
+	END
+	IF $PARTNAMEASCOMMENT = TRUE
+		IF $PARTSEQUENCENUMBER > 0
+			(Seq {PART SEQUENCE NUMBER} - {PARTNAME})
+		ELSE
+			({PARTNAME})
+			$CUSTOMER_NAME := $PART_CUSTOMER
+		END
+	END
+END
+
+[IGNORE CROP AND SCU CUTS]
+('NSetting(CFF Options, IgnoreSCUandCrop) = 0 || ('NSetting(CFF Options, IgnoreSCUandCrop) = 1 && $PARTNAME != SKELETON CUT UP && $PARTNAME != CROP))
+
+[PART SEQUENCE NUMBER]
+ARGUMENT=$PARTSEQUENCENUMBER
+FORMAT=%d
+
+[PARTNAME]
+ARGUMENT=$PARTNAME
+FORMAT=%s
+
+[CHANGE OFFSETS]
+{CANCEL PREVIOUS OFFSET}
+{ACTIVATE CURRENT OFFSET}
+
+[CANCEL PREVIOUS OFFSET]
+IF $PROCESS != $LASTPROCESS
+	IF $HEADSTATUS != $HEADUP &&'NSETTING(CFF Options, M199 Between Processes) = 1
+		{LINENO :M}M199
+		$HEADSTATUS:=$HEADUP
+	END
+
+	IF $LASTPROCESS=SCRIBE1
+		
+		//If purge is set to 1 in pp file or the force purge option is checked, purge
+		IF 'NSETTING(CFF Options, Purge between processes) = 1 || $PURGE = 1
+			{OUTPUT PURGE MACRO}
+		END
+	END
+END
+
+[CANCEL CURRENT OFFSET]
+IF $PROCESS != $NEXTPROCESS
+	
+	IF $HEADSTATUS != $HEADUP && 'NSETTING(CFF Options, M199 Between Processes) = 1
+		{LINENO :M}M199
+		$HEADSTATUS:=$HEADUP
+	END
+	
+	IF $LASTPROCESS=SCRIBE1
+		//If purge is set to 1 in pp file or the force purge option is checked, purge
+		IF 'NSETTING(CFF Options, Purge between processes) = 1 || $PURGE = 1
+			{OUTPUT PURGE MACRO}
+		END
+	END
+END
+
+[ACTIVATE CURRENT OFFSET]
+IF $PROCESS != $LASTPROCESS
+	IF ($PROCESS=PUNCH1 || $PROCESS=PUNCH2 || $PROCESS=PUNCH3 || $PROCESS=PUNCH4 || $PROCESS=PUNCH5 || $PROCESS=PUNCH6) && $STOPBEFOREPUNCH = TRUE
+		{OUTPUT MACHINE STOP}
+	ELSE
+		IF ($PROCESS=SCRIBE1 || $PROCESS=SCRIBE2) && $STOPBEFORESCRIBE = TRUE
+			{OUTPUT MACHINE STOP}
+		ELSE
+			IF ($PROCESS=CUT1 || $PROCESS=CUT2 || $PROCESS=CUT3) && $STOPBEFORECUT = TRUE
+				{OUTPUT MACHINE STOP}
+			END
+		END
+	END
+	IF $PROCESS=SCRIBE1
+		//{LINENO :M}M71
+	END
+END
+
+
+[ACTIVATE NEXT OFFSET]
+IF $PROCESS != $NEXTPROCESS
+	IF ($NEXTPROCESS=PUNCH1 || $NEXTPROCESS=PUNCH2 || $NEXTPROCESS=PUNCH3 || $NEXTPROCESS=PUNCH4 || $NEXTPROCESS=PUNCH5 || $NEXTPROCESS=PUNCH6) && $STOPBEFOREPUNCH = TRUE
+		{OUTPUT MACHINE STOP}
+	ELSE
+		IF ($NEXTPROCESS=SCRIBE1 || $NEXTPROCESS=SCRIBE2) && $STOPBEFORESCRIBE = TRUE
+			{OUTPUT MACHINE STOP}
+		ELSE
+			IF ($NEXTPROCESS=CUT1 || $NEXTPROCESS=CUT2 || $NEXTPROCESS=CUT3) && $STOPBEFORECUT = TRUE
+				{OUTPUT MACHINE STOP}
+			END
+		END
+	END
+	IF $NEXTPROCESS=SCRIBE1
+		//{LINENO :M}M71
+	END
+END
+
+[PROCESS ON MOTION]
+{SOP LINENO 1 :M}{RAPID MOTION}{OPTIONAL S0 :M}
+
+[RAPID MOTION]
+$MOTIONTYPE:=0
+IF $CONFIGUSEMODALXY=2
+  {LINENO :M}{RAPID MOTION CODE :M}{SAFE G40 :M}{CURRENTX}{CURRENTY}
+ELSE
+  {LINENO :M}{RAPID MOTION CODE :M}{SAFE G40 :M}{CURRENTX :M}{CURRENTY :M}
+END
+
+[PRE MOTION]
+// Calls at the start of the MOTION lines
+// This keeps the MOTION sections not quite as wide
+{EXACT STOP :M}{KERF DIRECTION :M}
+
+[POST MOTION]
+
+
+[LINEAR MOTION]
+IF $FORCERAPID=0
+	$MOTIONTYPE:=1
+	{PARAMETER LINE}
+
+	IF $INLEADOUT=TRUE && $NEXTPROFILEMOTION=NONE
+		$KERFDIR:=OFF
+	END
+
+	IF {NOT IN FLYCUT}
+		{PROCESS LINEAR MOTION}
+		//G04 dwell/exact stop (on a new line)
+		IF $CONFIGUSEEXACTSTOPCHECK = 4 || ($CONFIGUSEEXACTSTOPCHECK = 5 && $INALEAD = 1)
+			{POST MOTION EXACT STOP :M}
+		END
+	ELSE
+		// Don't do any of the special handling if in fly cutting
+		{LINENO :M}M120{LINEAR MOTION CODE :M}{CURRENTX}{CURRENTY}
+	END
+ELSE
+	{RAPID MOTION}
+	$FORCERAPID:=0
+END
+
+[PROCESS LINEAR MOTION]
+
+//-------------Scenarios covered by the following code--------------
+//-1- Starts off metal
+//-2- Ends off metal
+//-3- Regular cut
+//------------------------------------------------------------------
+// Order of events for starting cut in offsheet position
+// 1 - if we start off sheet:
+// 2 - 		Move to safe on sheet position
+// 3 - 		Turn off AHC 
+// 4 - 		cut to original coordinate
+// 5 - 		Cut back to the safe position
+// 6 - 		Turn AHC back on
+// 7 - 		Cut original path
+//------------------------------------------------------------------
+// Order of events for crosSing off plate
+// 1 - If endpoint is off sheet
+// 2 - 		if AHC ON Turn off AHC
+// 3 - 		Continue cut to original coordinates
+//------------------------------------------------------------------
+
+// - Lastx is the start point of the current motion - obviously, x being the end point
+// - Lasty is the start point of the current motion - obviously, y being the end point
+
+// Force head up for skeleton cut
+IF ({SKELETON CUT} || {CROP CUT})
+	$FORCEOFFUP:=1
+END
+
+IF {ON SHEET START} && {ON SHEET END}
+	// -1- Not crossing off the sheet (regular linear cut)
+	// nothing strange just do REAL LINEAR MOTION
+
+	{REAL LINEAR MOTION}
+ELSE
+	
+	// Remember the co-ordinates of the start of the original linear motion - at this point they are in LASTX, LASTY
+	$STARTX := $LASTX
+	$STARTY := $LASTY
+
+	// See if we are starting off the sheet, and, if so, come back onto the sheet for the pierce
+	IF {OFF SHEET START} && ({SKELETON CUT} || {CROP CUT})
+
+		// Calculate unit vectors in the direction from the start of the motion to the end
+		$UVX := ($X-$STARTX)/'HYPOT(($X-$STARTX),($Y-$STARTY))
+		$UVY := ($Y-$STARTY)/'HYPOT(($X-$STARTX),($Y-$STARTY))
+		
+		// We want a position on the sheet that is "HEIGHTSENSEDISTANCE" from the edge. We work out how far that is from PN's idea of the start position. This distance should always
+		// be positive, since unit vectors will take care of the sign of the direction of travel
+		
+		IF $STARTX > $SHEETMAXX
+			$EXTENSION:= $HEIGHTSENSEDISTANCE + ($STARTX - $SHEETMAXX)
+		ELSEIF $STARTX < $SHEETMINX
+			$EXTENSION:= $HEIGHTSENSEDISTANCE + ($SHEETMINX - $STARTX)
+		ELSEIF $STARTY > $SHEETMAXY
+			$EXTENSION:= $HEIGHTSENSEDISTANCE + ($STARTY - $SHEETMAXY)
+		ELSEIF $STARTY < $SHEETMINY
+			$EXTENSION:= $HEIGHTSENSEDISTANCE + ($SHEETMINY - $STARTY)
+		END
+		
+		// We mustn't go further into the sheet than the original feature, otherwise we risk cutting into a part.
+		
+		// Compare with the length of the original linear motion.
+		$LINELENGTH:= 'HYPOT($X - $LASTX, $Y - $LASTY)
+
+		IF $EXTENSION > $LINELENGTH
+			$EXTENSION:= $LINELENGTH
+		END
+		
+		$ONSHEETPOSX := $STARTX + $EXTENSION * $UVX
+		$ONSHEETPOSY := $STARTY + $EXTENSION * $UVY
+		
+		// Remember the original target X and Y
+		$SAVEX := $X
+		$SAVEY := $Y
+		
+		// Move back on sheet
+		$X := $ONSHEETPOSX
+		$Y := $ONSHEETPOSY
+		{RAPID MOTION}
+
+		{LASER ON}
+		
+		// Lock the head height for the cut off the sheet
+		{HEIGHTHOLDON}
+		
+		// cut to either the original start coordinate, or an overridden position if we are overriding extensions for crop cuts and we are at the top or right of the sheet
+		IF $OVERRIDEOFFSHEETEXTENSION != 0.0 && {CROP CUT} && ($STARTX > $SHEETMAXX  || $STARTY > $SHEETMAXY)
+			IF $STARTX > $SHEETMAXX
+				$X := $SHEETMAXX + $OVERRIDEOFFSHEETEXTENSION
+				$Y := $STARTY
+			ELSE
+				$X := $STARTX
+				$Y := $SHEETMAXY + $OVERRIDEOFFSHEETEXTENSION
+			END
+		ELSE
+			$X := $STARTX
+			$Y := $STARTY
+		END
+		
+		// Output the cut
+		{REAL LINEAR MOTION}
+		
+		//if the strategy is to lift - then position do so...
+		IF 'NSETTING(CFF Options, Offsheet start strategy) = 0
+			$FORCEOFFUP := 1
+			{OUTPUT CUT1 OFFUP}
+		END
+					
+		//Cut/position back to where we started to turn AHC on
+		$X := $ONSHEETPOSX
+		$Y := $ONSHEETPOSY
+		{REAL LINEAR MOTION}
+
+		//if the strategy is 1 - this means we're going to cut back on and turn M75 on...
+		IF 'NSETTING(CFF Options, Offsheet start strategy) = 1
+			// Unlock the head height
+			{HEIGHTHOLDOFF}
+		ELSE
+			//Else fire the laser
+			{OUTPUT CUT1 ON}
+		END
+		
+		// Set X and Y to be the original target position
+		$X := $SAVEX
+		$Y := $SAVEY
+	END
+
+	//Continue or Cut a profile off metal
+	
+	// Initialise the flag for whether we need to drop into the standard cut to the end of the original feature
+	$NEEDDEFAULTOFFSHEETCUT:=1
+	
+	IF {OFF SHEET END} && ({SKELETON CUT} || {CROP CUT})
+		$UVX := ($X-$STARTX)/'HYPOT(($X-$STARTX),($Y-$STARTY))
+		$UVY := ($Y-$STARTY)/'HYPOT(($X-$STARTX),($Y-$STARTY))
+
+		IF $X > $SHEETMAXX
+			$EXTENSION:= $X - ($SHEETMAXX - $HEIGHTSENSEDISTANCE)
+		ELSEIF $X < $SHEETMINX
+			$EXTENSION:= ($SHEETMINX + $HEIGHTSENSEDISTANCE) - $X
+		ELSEIF $Y > $SHEETMAXY
+			$EXTENSION:= $Y - ($SHEETMAXY - $HEIGHTSENSEDISTANCE) 
+		ELSEIF $Y < $SHEETMINY
+			$EXTENSION:= ($SHEETMINY + $HEIGHTSENSEDISTANCE) - $Y
+		END
+		
+		// We mustn't go further into the sheet than the original feature, otherwise we risk cutting into a part.
+		
+		// Compare with the length of the original linear motion.
+		$LINELENGTH:= 'HYPOT($X - $LASTX, $Y - $LASTY)
+
+		IF $EXTENSION > $LINELENGTH
+			$EXTENSION:= $LINELENGTH
+		END
+
+		$ONSHEETPOSX := $X - $EXTENSION * $UVX
+		$ONSHEETPOSY := $Y - $EXTENSION * $UVY
+		
+		// Remember the original X and Y
+		$SAVEX := $X
+		$SAVEY := $Y
+		
+		// Cut as far as the point that we want to lock the head height at
+		$X := $ONSHEETPOSX
+		$Y := $ONSHEETPOSY
+		{REAL LINEAR MOTION}
+		
+		{HEIGHTHOLDON}
+				
+		// Make sure we do a head raise when we turn the laser off the final cut
+		$FORCEOFFUP:=1
+		
+		// If we are cutting off the top or right of the sheet, then see if we are configured to override the extension for a crop cut
+		// Note as with all the code in this area, we assume a rectangular sheet
+		IF $OVERRIDEOFFSHEETEXTENSION != 0.0 && {CROP CUT} && ($SAVEX > $SHEETMAXX  || $SAVEY > $SHEETMAXY)
+			IF $SAVEX > $SHEETMAXX
+				$OFFSHEETPOSX := $SHEETMAXX + $OVERRIDEOFFSHEETEXTENSION
+				$OFFSHEETPOSY := $SAVEY
+			ELSE
+				$OFFSHEETPOSX := $SAVEX
+				$OFFSHEETPOSY := $SHEETMAXY + $OVERRIDEOFFSHEETEXTENSION
+			END
+			
+			// Cut to the overridden position
+			$X := $OFFSHEETPOSX
+			$Y := $OFFSHEETPOSY
+			{REAL LINEAR MOTION}
+			
+			// Set the flag to say we don't need the last cut
+			$NEEDDEFAULTOFFSHEETCUT := 0
+		ELSE
+			// Set X and Y to be the original target position
+			$X := $SAVEX
+			$Y := $SAVEY
+		END
+	END
+
+	// Cut to original coordinates unless we have overridden it in the off sheet end section
+	IF $NEEDDEFAULTOFFSHEETCUT = 1
+		{REAL LINEAR MOTION}
+	END
+
+END
+
+[ON SHEET END]
+($X >= $SHEETMINX && $X <= $SHEETMAXX && $Y >= $SHEETMINY && $Y <= $SHEETMAXY)
+
+[OFF SHEET END]
+($X < $SHEETMINX || $X > $SHEETMAXX || $Y < $SHEETMINY || $Y > $SHEETMAXY)
+
+[ON SHEET START]
+($LASTX >= $SHEETMINX && $LASTX <= $SHEETMAXX && $LASTY >= $SHEETMINY && $LASTY <= $SHEETMAXY)
+
+[OFF SHEET START]
+($LASTX < $SHEETMINX || $LASTX > $SHEETMAXX || $LASTY < $SHEETMINY || $LASTY > $SHEETMAXY)
+
+[SKELETON CUT]
+($PARTNAME=SKELETON CUT UP)
+
+[NOT A SKELETON CUT]
+($PARTNAME!=SKELETON CUT UP)
+
+[CROP CUT]
+($PARTNAME=CROP)
+
+[NOT A CROP CUT]
+($PARTNAME!=CROP)
+
+// Output a linear motion with appropriate pre- and post- motion words
+[REAL LINEAR MOTION]
+{LINENO :M}{LINEAR MOTION CODE :M}{PRE MOTION :M}{CURRENTX :M}{CURRENTY :M}{POST MOTION :M}
+
+[CLOCKWISE MOTION]
+$MOTIONTYPE:=2
+{CHECK FOR ARC TOO SMALL}
+IF $ARCTOOSMALL=1
+	{LINEAR MOTION}
+ELSE
+	IF {NOT IN FLYCUT}
+		{PARAMETER LINE}	 
+		{LINENO :M}{CLOCKWISE MOTION CODE :M}{EXACT STOP :M}{CURRENTX :M}{CURRENTY :M}{ARC CENTER}{POST MOTION :M}
+		
+		IF $CONFIGUSEEXACTSTOPCHECK = 4 || ($CONFIGUSEEXACTSTOPCHECK = 5 && $INALEAD = 1)
+			{POST MOTION EXACT STOP :M}
+		END
+	ELSE
+		{LINENO :M}M120{CLOCKWISE MOTION CODE :M}{CURRENTX :M}{CURRENTY :M}{ARC CENTER}
+	END
+END
+
+[COUNTERCLOCKWISE MOTION]
+$MOTIONTYPE:=3
+{CHECK FOR ARC TOO SMALL}
+IF $ARCTOOSMALL=1
+	{LINEAR MOTION}
+ELSE
+	IF {NOT IN FLYCUT}
+		{PARAMETER LINE}  
+		{LINENO :M}{COUNTERCLOCKWISE MOTION CODE :M}{EXACT STOP :M}{CURRENTX :M}{CURRENTY :M}{ARC CENTER}{POST MOTION :M}
+		
+		IF $CONFIGUSEEXACTSTOPCHECK = 4 || ($CONFIGUSEEXACTSTOPCHECK = 5 && $INALEAD = 1)
+			{POST MOTION EXACT STOP :M}
+		END
+	ELSE
+		{LINENO :M}M120{COUNTERCLOCKWISE MOTION CODE :M}{CURRENTX :M}{CURRENTY :M}{ARC CENTER}
+	END
+END
+
+[ARC CENTER]
+IF $CONFIGIJALWAYSINCREMENTAL=2
+  {ARC RADIUS}
+ELSE
+  {CURRENTI}{CURRENTJ}
+END
+
+[EXACT STOP]
+// This section decides if the machine should maintain feedrate at the end of the motion
+// or if it should come to a stop.  The degree of angle change determines this
+IF ($CONFIGUSEEXACTSTOPCHECK!=4 && $CONFIGUSEEXACTSTOPCHECK!=5)
+
+	IF $CONFIGUSEEXACTSTOPCHECK=0
+	  $EXACTSTOPCHECK:=2
+	END
+	IF $NEXTPROFILEMOTION=NONE
+	  $ANGLECHANGE:=0
+	ELSE
+	  $ANGLECHANGE:='ABS($ENDTANGENTANGLE-$NEXTSTARTTANGENTANGLE)
+	END
+	IF $ANGLECHANGE>180
+	  $ANGLECHANGE:='ABS($ANGLECHANGE-360.0)
+	END
+	IF $CONFIGUSEEXACTSTOPCHECK>=2
+	  $EXACTSTOPCHECK:=0
+	END
+	// The number in the next line determines when an EXACT STOP needs to be inserted
+	// and when it should maintain feedrate
+	IF $ANGLECHANGE>=$EXACTSTOPANGLE
+	  // Use exact stop check mode
+	  IF $EXACTSTOPCHECK=0
+		IF $CONFIGUSEEXACTSTOPCHECK=2
+		  // One-shot exact stop
+		  G9
+		ELSEIF $CONFIGUSEEXACTSTOPCHECK=3
+			(G9)
+		ELSE
+		  // Modal exact stop
+		  G61
+		END
+		$EXACTSTOPCHECK:=1
+	  END
+	ELSE
+	  // Continuous (cut) mode
+	  IF $EXACTSTOPCHECK=1
+		G64
+		$EXACTSTOPCHECK:=0
+	  END
+	END
+END
+
+[RAPID MOTION GCODE]
+IF 'NSETTING(CFF Options, MotionCodeStyle) = 0
+	G0
+ELSE
+	G00
+END
+
+[RAPID MOTION CODE]
+IF ($CONFIGUSEMODALMOTIONCODES=0) || ($CURRENTMOTION!=0)
+	{NSP :M}{RAPID MOTION GCODE}
+	$CURRENTMOTION:=0
+END
+
+[LINEAR MOTION CODE]
+IF ($CONFIGUSEMODALMOTIONCODES=0) || ($CURRENTMOTION!=1)
+    IF 'NSETTING(CFF Options, MotionCodeStyle) = 0
+		{NSP :M}G1
+	ELSE
+		{NSP :M}G01
+	END
+	
+  $CURRENTMOTION:=1
+END
+
+[CLOCKWISE MOTION CODE]
+IF ($CONFIGUSEMODALMOTIONCODES=0) || ($CURRENTMOTION!=2)
+  IF {NORMAL AXIS DIRECTION}
+    IF 'NSETTING(CFF Options, MotionCodeStyle) = 0
+		{NSP :M}G2
+	ELSE
+		{NSP :M}G02
+	END
+  ELSE
+    IF 'NSETTING(CFF Options, MotionCodeStyle) = 0
+		{NSP :M}G3
+	ELSE
+		{NSP :M}G03
+	END
+  END
+  
+  $CURRENTMOTION:=2
+END
+
+[COUNTERCLOCKWISE MOTION CODE]
+IF ($CONFIGUSEMODALMOTIONCODES=0) || ($CURRENTMOTION!=3)
+  IF {NORMAL AXIS DIRECTION}
+	IF 'NSETTING(CFF Options, MotionCodeStyle) = 0
+		{NSP :M}G3
+	ELSE
+		{NSP :M}G03
+	END
+  ELSE
+	IF 'NSETTING(CFF Options, MotionCodeStyle) = 0
+		{NSP :M}G2
+	ELSE
+		{NSP :M}G02
+	END
+  END
+  
+  $CURRENTMOTION:=3
+END
+
+[INIT PT MOTION CODE]
+{RAPID MOTION CODE}
+
+[ADD KERF VALUE]
+IF $KERF > 0.0 && $KERF != $LASTKERF
+	{KERF VALUE}
+	$KERF:=$KERF
+END
+
+[OUTPUT KERF LEFT]
+// Any call from Pronest to this or the next section says that this part was not
+// prekerfed.  If not prekerfed, then we need to cancel the Kerf at the end of
+// the cut.
+$PREKERFED:=0
+
+[OUTPUT KERF RIGHT]
+$PREKERFED:=0
+
+[KERF LEFT CODE]
+// If running a right-hand axis machine, verify the G41/G42 directions
+IF {NORMAL AXIS DIRECTION}
+  // Left hand coordinate system - +X direction to +Y direction is counter-clockwise
+  G41
+ELSE
+  // Right hand coordinate system - +X direction to +Y direction is clockwise
+  G42
+END
+
+[KERF RIGHT CODE]
+// If running a right-hand axis machine, verify the G41/G42 directions
+IF {NORMAL AXIS DIRECTION}
+  // Left hand coordinate system - +X direction to +Y direction is counter-clockwise
+  G42
+ELSE
+  // Right hand coordinate system - +X direction to +Y direction is clockwise
+  G41
+END
+
+[KERF OFF CODE]
+G40
+
+[KERF LEFT]
+{LINENO :M}{KERF LEFT CODE}{KERF VALUE :M}
+$KERFSTATUS:=41
+
+[KERF RIGHT]
+{LINENO :M}{KERF RIGHT CODE}{KERF VALUE :M}
+$KERFSTATUS:=42
+
+[KERF OFF]
+{LINENO :M}{KERF OFF CODE}
+$KERFSTATUS:=40
+
+[KERF DIRECTION]
+IF $PREKERFING_ACTIVE=TRUE
+  $PREKERFED:=1
+END
+IF ($PREKERFED=0)
+	IF ($PROCESS != SCRIBE1) && ($PROCESS != SCRIBE2)
+	// We can still cancel kerf in the scribe process
+		IF $KERFDIR = LEFT && $KERFSTATUS!=41
+			{KERF LEFT}
+		END
+		IF $KERFDIR = RIGHT && $KERFSTATUS!=42
+			{KERF RIGHT}
+		END
+	END
+	IF $KERFDIR = OFF && $KERFSTATUS!=40
+		{KERF OFF}
+	END
+END
+
+[OUTPUT MACHINE STOP]
+// Rename from OUTPUT STOP so PN won't call it with prepiercing
+{LINENO :M}M00
+
+[OUTPUT AHCON]
+
+[OUTPUT AHCOFF]
+
+// Note that the concepts of AHC on and off, and the head height being locked, are somewhat confused.
+[AHCON CODE]
+{HEIGHTHOLDOFF}
+
+[AHCOFF CODE] 
+{HEIGHTHOLDON}
+
+[HEIGHTHOLDON]
+{LINENO :M}M74
+
+[HEIGHTHOLDOFF]
+{LINENO :M}M75
+
+[AHCON]
+IF ($AHCISON = 0 || $AHCISON = 2) && $DISABLEAHC=0
+	{AHCON CODE}
+	$AHCISON:=1
+END
+
+[FORCE AHCON]
+IF ($AHCISON = 0 || $AHCISON = 2)
+	{AHCON CODE}
+	$AHCISON:=1
+END
+
+[AHCOFF]
+IF ($AHCISON = 1 || $AHCISON = 2)
+	{AHCOFF CODE}
+	$AHCISON:=0
+END
+
+[CHECK AHC]
+// If Pronest thinks it's supposed to be on ($AHC=ON), and it's not, and we're
+// not disabling it through the Process Parameter file, turn it on
+IF $AHC=ON && $AHCISON=0 && $DISABLEAHC=0
+  {AHCON}
+END
+// If Pronest thinks it's supposed to be off ($AHC=OFF), and it's on, turn it off
+IF $AHC=OFF && $AHCISON!=0 || $DISABLEAHC=1
+  {AHCOFF}
+END
+
+[START LEADIN]
+// This section is here as a place holder and so the name is already in place
+$INALEAD :=1
+
+[END LEADIN]
+// This section is here as a place holder and so the name is already in place
+$INALEAD :=0
+
+[START LEADOUT]
+IF $DEEPDIMPLE=1
+  $KERFDIR:=RIGHT
+ELSE
+  $KERFDIR:=OFF
+END
+
+[OUTPUT START OVERTRAVEL]
+{START LEADOUT}
+
+[END LEADOUT]
+// This section is here as a place holder and so the name is already in place
+
+[START TAB]CUT CONDITION
+$INTAB := 1
+
+[END TAB]
+$INTAB := 0
+{END LEADIN}
+
+[START CHAIN]
+// If this is set to 0 instead of 1, kerf commands will come out during chain cuts
+$INCHAIN := 1
+
+[END CHAIN]
+$INCHAIN := 0
+
+[CUT SUB]
+// This section may be useful if an integer value is used to initiate cutting.
+// This is often an M98P___ call to a subroutine already stored in the machine
+ARGUMENT=$CUTSUB
+FORMAT=M98P%d
+
+[CUT CONDITION]
+// This section may be useful if a cutting condition needs to be applied
+// separately from the CUT SUB value.
+ARGUMENT=$CUTCONDITION
+FORMAT=E%d
+
+[LASER ON]
+IF ({EDGE PIERCE} || {PREPIERCED PROFILE} || {CONTINUATION CLC}) && ('atof($REPIERCECONDITION)>0)
+	{LINENO :M}{REPIERCE CONDITION}
+ELSE
+	{LINENO :M}{PIERCE CONDITION}
+END
+
+// Reset flags for next profile
+$LASTCUTCLC := 0
+$SKELETONCUPUP := 0
+
+[PIERCE CONDITION]
+ARGUMENT=$PIERCECONDITION
+FORMAT=M98P%s
+
+[REPIERCE CONDITION]
+ARGUMENT=$REPIERCECONDITION
+FORMAT=M98P%s
+
+[PROFILE START MODIFIED FOR SAFETY CUT]
+	// If the profile is part of the clc set last flag
+	IF ($SKELETONCUPUP = 0)
+		$LASTCUTCLC := 1
+	END
+	
+[OUTPUT START SAFETY CUT]
+// Beginning of initial SCU cut (from new pierce point to original pierce point)
+	// If the profile is part of the clc set last flag
+	IF ($PROFILE_CLC = TRUE)
+		$LASTCUTCLC := 1
+	END
+	
+[OUTPUT END SAFETY CUT]
+// End of initial SCU cut (from new pierce point to original pierce point)
+{LINENO :M}M87
+IF {XY ON SHEET}
+ELSE
+  {LINENO :M}G28Z-2.
+END
+
+[OUTPUT START SCU CUTBACK]
+// Beginning of SCU cut back (to new pierce point)
+$FORCERAPID:=1
+$SKELETONCUPUP := 1
+
+[OUTPUT END SCU CUTBACK]
+// End of SCU cut back (to new pierce point)
+{LINENO :M}M198
+{LINENO :M}M120
+
+[OUTPUT CUT1 ON]
+{SET KERF D VALUES}
+$CUTTINGDISTANCE:=$CUTTINGDISTANCE + $DISTANCETOPROCESSOFF
+$CUTCONDTOGGLE := 0
+
+$HEADSTATUS := $HEADDOWN
+// CUT1 ON codes go in this section.
+IF $CONFIGDELAYPROCESSONMOTION=1
+  $X := $LASTSAVEX
+  $Y := $LASTSAVEY
+  $X := $SAVEX
+  $Y := $SAVEY
+  $KERFDIR:=OFF
+  {PROCESS ON MOTION}
+  $KERFDIR:=$LASTKERFDIR
+END
+IF {FLYCUT ON}
+	//position CNC
+	{SOP LINENO 0}
+	{BND}
+	{PROCESS ON MOTION}	
+	// Initial Flycut pre motion
+	{LINENO :M}M#501
+	{LINENO :M}M198
+	{LINENO :M}M80
+	{PARAMETER LINE}
+ELSEIF {IN FLYCUT}
+	//Premotion when in the midst of flycutting 
+	{LINENO :M}M121{LINEAR MOTION CODE :M}{LAST X}{LAST Y}
+ELSE
+	//normal cutting
+	IF 'NSETTING(CFF Options, M198M101 line) > 0
+		{LINENO :M}M198M101
+	END
+	
+	IF $OUTPUTTIMER=1 && 'NSETTING(CFF Options, 3002 variable setting) = 2
+		{LINENO :M}#3002=0
+		$OUTPUTTIMER:=0
+	END
+	
+	{PARAMETER LINE}
+	
+	IF ({NOT A SKELETON CUT} && {NOT A CROP CUT}) || {XY ON SHEET}
+	  // If doing a skeleton cut, and starting off sheet, delay the torch
+	  {LASER ON}
+	END
+	$FORCELINEARMOTION:=FALSE
+END
+
+[OUTPUT CUT1 OFF]
+IF {NOT IN FLYCUT}
+	$HEADSTATUS := $HEADDOWN
+
+	IF $FORCEOFFUP=0
+		IF $CONFIGUSEM87OFF=0 || ($CONFIGUSEM87OFF=2 && $NEXTPROCESS = NONE) || ($CONFIGUSEM87OFF=3 && $M121OFF = 1)
+			{LINENO :M}M121
+		ELSE
+			{LINENO :M}M87
+		END
+
+		IF $PREKERFING_ACTIVE=TRUE
+			$PREKERFED:=1
+		END
+
+		IF 'NSETTING(CFF Options,M198M101 line) = 2
+			{LINENO :M}M101
+		END
+
+		IF 'NSETTING(CFF Options, Force Height Control End Of Profile) = 1 && {ON SHEET END}
+			{FORCE AHCON}
+		END
+
+		// Output M751 part end if M750 set and not the last part in the job
+		// that will be picked up and output just before the M30
+		IF $PARTSTARTENDCODE = 1 && $LASTPROFILEINPART = TRUE  && $DISTANCETOPROCESSON > 0 && $INTAB = 0
+			{LINENO :M}M751
+			$PARTSTARTENDCODE := 0
+		END
+						
+		IF ('NSETTING(CFF Options,Force M199 Off) = 1 || {SKELETON CUT})
+			//We need to lift the head from the last profile - ensure we output an M199
+			M199
+			$HEADSTATUS := $HEADUP
+		END
+		
+			//Some machines want to 'cancel the cond using M101 (only if machine supports M code overrides for cut cond)
+		IF 'NSETTING(CFF Options, Cancel Condition Setting) = 1 && 'NSETTING(CFF Options, Cut Condition Code) = 1
+			{LINENO :M}M101
+		END
+	ELSE
+		{OUTPUT CUT1 OFFUP}
+	END
+ELSEIF {FLYCUT OFF}
+	{LINENO :M}M121
+	{LINENO :M}M81
+	{LINENO :M}M199
+	{LINENO :M}M395
+	{LINENO :M}M391
+	$CUTCONDITION:=0
+END
+IF {NOT IN FLYCUT}
+	$CUTCONDITION:=0
+END
+$FORCELINEARMOTION:=FALSE
+
+[OUTPUT CUT1 OFFUP]
+IF {NOT IN FLYCUT}
+	// Turn off the cutting device, and raise the head to travel height
+	IF {ON SHEET END}
+		{CHECK AHC}
+	END
+		
+	IF $FORCEOFFUP = 1 || $CONFIGUSEM87OFF=0 || $CONFIGUSEM87OFF=2 || ($CONFIGUSEM87OFF=3 && $M121OFF = 1)
+	  {LINENO :M}M121
+	ELSE
+	  {LINENO :M}M87
+	END	
+	
+		//Some machines want to 'cancel the cond using M101 (only if machine supports M code overrides for cut cond)
+	IF 'NSETTING(CFF Options, Cancel Condition Setting) = 1 && 'NSETTING(CFF Options, Cut Condition Code) = 1
+		{LINENO :M}M101
+	END
+	
+	// Output M751 part end if M750 set and not the last part in the job
+	// that will be picked up and output just before the M30
+	IF $PARTSTARTENDCODE = 1 && $LASTPROFILEINPART = TRUE && $DISTANCETOPROCESSON > 0 && $INTAB = 0
+		{LINENO :M}M751
+		$PARTSTARTENDCODE := 0
+	END
+	
+	//IF $HEADSTATUS = $HEADDOWN && $NEXTPROCESS!=NONE
+	IF $HEADSTATUS = $HEADDOWN
+		//We need to lift the head from the last profile - ensure we output an M199	
+		M199
+		$HEADSTATUS := $HEADUP
+	END
+		
+	IF 'NSETTING(CFF Options, Force Height Control End Of Profile) = 1
+		IF {ON SHEET END}
+			{FORCE AHCON}
+		END
+	END
+		
+ELSEIF {FLYCUT OFF}
+	{LINENO :M}M121
+	{LINENO :M}M81
+	{LINENO :M}M199
+	{LINENO :M}M395
+	{LINENO :M}M391
+	$CUTCONDITION:=0
+END
+IF {NOT IN FLYCUT}
+	$CUTCONDITION:=0
+END
+$FORCELINEARMOTION:=FALSE
+
+[OUTPUT SCRIBE1 ON]
+// Scribing or Marking commands go in this section
+$CUTCONDTOGGLE := 0
+$PREKERFED:=1
+{CANCEL PREVIOUS OFFSET}
+{SOP LINENO 0}
+{PART NAME COMMENT}
+{ACTIVATE CURRENT OFFSET}
+{PROCESS ON MOTION}
+{PARAMETER LINE}
+{LINENO :M}{PIERCE CONDITION}
+$HEADSTATUS := $HEADDOWN
+$FORCELINEARMOTION:=FALSE
+
+[OUTPUT SCRIBE1 OFF]
+IF $CONFIGUSEM87OFF=0
+  {LINENO :M}M121
+ELSE
+  {LINENO :M}M87
+END
+IF 'NSetting(CFF Options,M199 After Each Scribe)=1
+	IF 'NSetting(CFF Options,M199 Between Processes)=1 && $PROCESS!=$NEXTPROCESS
+		// Don't output in this case - the cancel offsets section will take care of it
+	ELSE
+		{LINENO :M}M199
+	END
+END
+
+$CUTCONDITION:=0
+$FORCELINEARMOTION:=FALSE
+
+[OUTPUT PUNCH1 ON]
+$CUTCONDTOGGLE := 0
+$PREKERFED:=1
+{CANCEL PREVIOUS OFFSET}
+{SOP LINENO 0}
+{PART NAME COMMENT}
+
+{ACTIVATE CURRENT OFFSET}
+{PROCESS ON MOTION}
+{PARAMETER LINE}
+{LINENO :M}{PIERCE CONDITION}
+{OUTPUT DWELL}
+{LINENO :M}M121
+
+IF 'NSETTING(CFF Options,Force M199 Off) = 1
+	//We need to lift the head from the last profile - ensure we output an M199
+	{LINENO :M}M199
+	$HEADSTATUS := $HEADUP
+END
+
+$CUTCONDITION:=0
+
+[COMMENT FORMAT]
+(%s)
+
+[OUTPUT PURGE MACRO]
+ARGUMENT='NSETTING(CFF Options, Purge Macro)
+FORMAT={LINENO :M}M98P%d
+
+[FORMAT PART OF THE CFF]
+
+
+[INITPTX]
+ARGUMENT=($INITPTX - $ZEROPTX) * $CONVERSION
+FORMAT=X{XY FORMAT}
+
+[INITPTY]
+ARGUMENT=($INITPTY - $ZEROPTY) * $CONVERSION
+FORMAT=Y{XY FORMAT}
+
+[CONVERSION]
+IF $UNITS=INCH
+	1.00
+ELSE
+	25.40
+END
+
+[NWORD]
+// Use N%d for no leading zeros
+// Use N%03d for 3 digit N numbers
+// Use N%04d for 4 digit N numbers
+
+	IF 'NSETTING(CFF Options, LineNumberFormat) = 0
+		FORMAT=N%d{SP}
+	ELSEIF 'NSETTING(CFF Options, LineNumberFormat) = 3
+		FORMAT=N%03d{SP}
+	ELSEIF 'NSETTING(CFF Options, LineNumberFormat) = 4
+		FORMAT=N%04d{SP}
+	END
+
+
+ARGUMENT=$LINENUMBER
+
+[NUMTORCHES]
+ARGUMENT=$NUMTORCHES	
+FORMAT=%d
+
+[TORCHSPACING]
+ARGUMENT=$TORCHSPACING * $CONVERSION
+FORMAT=%4.3lf
+
+[TORCHUNITS]
+IF $UNITS = INCH
+	in
+ELSE
+	mm
+END
+
+[XY FORMAT]
+IF $UNITS=INCH
+	IF $PRECISION=NORMAL
+		%4.3lf
+	ELSE
+		%5.4lf
+	END
+ELSE
+	IF $PRECISION=NORMAL
+		%3.2lf
+	ELSE
+		%4.3lf
+	END
+END
+
+[IJ FORMAT]
+IF $UNITS=INCH
+	IF $PRECISION=NORMAL
+		%4.3lf
+	ELSE
+		%5.4lf
+	END
+ELSE
+	IF $PRECISION=NORMAL
+		%3.2lf
+	ELSE
+		%4.3lf
+	END
+END
+
+[Z FORMAT]
+IF 'NSetting(CFF Options,M100 Thickness)=2
+	%3.2lf
+ELSEIF 'NSetting(CFF Options,M100 Thickness)=3
+	%4.3lf
+ELSEIF 'NSetting(CFF Options,M100 Thickness)=4
+	%5.4lf
+ELSE
+	IF $UNITS=INCH
+		IF $PRECISION=NORMAL
+			%4.3lf
+		ELSE
+			%5.4lf
+		END
+	ELSE
+		IF $PRECISION=NORMAL
+			%3.2lf
+		ELSE
+			%4.3lf
+		END
+	END
+
+[DIMENSION DISPLAY FORMAT]
+IF $UNITS=INCH
+	IF $PRECISION=NORMAL
+		%4.3lf
+	ELSE
+		%5.4lf
+	END
+ELSE
+	IF $PRECISION=NORMAL
+		%3.2lf
+	ELSE
+		%4.3lf
+	END
+END
+
+[FEEDRATE FORMAT]
+IF $UNITS=INCH
+	%2.1lf
+ELSE
+	%2.1lf
+END
+
+[DWELL FORMAT]
+%3.2lf
+
+[XYIJ DECIMAL SHIFT]
+IF $UNITS=INCH
+	IF $PRECISION=NORMAL
+    // For implied decimals, this is 1000 and change XY, IJ formats above to %1.0lf
+		1
+	ELSE
+    // For implied decimals, this is 10000 and change XY, IJ formats above to %1.0lf
+		1
+	END
+ELSE
+	IF $PRECISION=NORMAL
+    // For implied decimals, this is 100 and change XY, IJ formats above to %1.0lf
+		1
+	ELSE
+    // For implied decimals, this is 1000 and change XY, IJ formats above to %1.0lf
+		1
+	END
+END
+
+[FEEDRATE DECIMAL SHIFT]
+1
+
+[KERF DECIMAL SHIFT]
+1
+
+[DWELL DECIMAL SHIFT]
+1
+
+[ANGLE DECIMAL SHIFT]
+1
+
+[CURRENTX]
+IF $CONFIGUSEMODALXY>0
+  MODAL_ARGUMENT=$X
+END
+IF $MODE=ABSOLUTE
+	ARGUMENT=($X - $ZEROPTX) * $CONVERSION * $XYIJDECIMALSHIFT
+ELSE
+	ARGUMENT=($X - $LASTX) * $CONVERSION * $XYIJDECIMALSHIFT
+END
+FORMAT=X{XY FORMAT}
+
+[CURRENTY]
+IF $CONFIGUSEMODALXY>0
+  MODAL_ARGUMENT=$Y
+END
+IF $MODE=ABSOLUTE
+	ARGUMENT=($Y - $ZEROPTY) * $CONVERSION * $XYIJDECIMALSHIFT
+ELSE
+	ARGUMENT=($Y - $LASTY) * $CONVERSION * $XYIJDECIMALSHIFT
+END
+FORMAT=Y{XY FORMAT}
+
+[LAST X]
+ARGUMENT=$LASTX * $CONVERSION * $XYIJDECIMALSHIFT
+FORMAT=X{XY FORMAT}
+
+[LAST Y]
+ARGUMENT=$LASTY * $CONVERSION * $XYIJDECIMALSHIFT
+FORMAT=Y{XY FORMAT}
+
+[CURRENTY]
+IF $CONFIGUSEMODALXY>0
+  MODAL_ARGUMENT=$Y
+END
+IF $MODE=ABSOLUTE
+	ARGUMENT=($Y - $ZEROPTY) * $CONVERSION * $XYIJDECIMALSHIFT
+ELSE
+	ARGUMENT=($Y - $LASTY) * $CONVERSION * $XYIJDECIMALSHIFT
+END
+FORMAT=Y{XY FORMAT}
+
+[CURRENTI]
+IF $MODE=ABSOLUTE && $CONFIGIJALWAYSINCREMENTAL=0
+	ARGUMENT=($I - $ZEROPTX) * $CONVERSION * $XYIJDECIMALSHIFT
+ELSE
+	ARGUMENT=($I - $LASTX) * $CONVERSION * $XYIJDECIMALSHIFT
+END
+FORMAT=I{IJ FORMAT}
+
+[CURRENTJ]
+IF $MODE=ABSOLUTE && $CONFIGIJALWAYSINCREMENTAL=0
+	ARGUMENT=($J - $ZEROPTY) * $CONVERSION * $XYIJDECIMALSHIFT
+ELSE
+	ARGUMENT=($J - $LASTY) * $CONVERSION * $XYIJDECIMALSHIFT
+END
+FORMAT=J{IJ FORMAT}
+
+[ARC RADIUS]
+ARGUMENT=$RADIUS * $CONVERSION * $XYIJDECIMALSHIFT
+FORMAT=R{IJ FORMAT}
+
+[FEEDRATE]
+MODAL_ARGUMENT=$FEEDRATE
+ARGUMENT=$FEEDRATE * $CONVERSION * $FEEDRATEDECIMALSHIFT
+FORMAT=F{FEEDRATE FORMAT}
+
+[SET KERF D VALUES]
+	IF $DVALUE=1
+		$KERFD1:=$KERF
+		$MC2KERFD1:=$MACHINE2KERF
+	END
+	IF $DVALUE=2
+		$KERFD2:=$KERF
+		$MC2KERFD2:=$MACHINE2KERF
+	END
+	IF $DVALUE=3
+		$KERFD3:=$KERF
+		$MC2KERFD3:=$MACHINE2KERF
+	END
+	IF $DVALUE=4
+		$KERFD4:=$KERF
+		$MC2KERFD4:=$MACHINE2KERF
+	END
+	IF $DVALUE=5
+		$KERFD5:=$KERF
+		$MC2KERFD5:=$MACHINE2KERF
+	END
+	IF $DVALUE=6
+		$KERFD6:=$KERF
+		$MC2KERFD6:=$MACHINE2KERF
+	END
+	IF $DVALUE=7
+		$KERFD7:=$KERF
+		$MC2KERFD7:=$MACHINE2KERF
+	END
+	IF $DVALUE=8
+		$KERFD8:=$KERF
+		$MC2KERFD8:=$MACHINE2KERF
+	END
+	IF $DVALUE=9
+		$KERFD9:=$KERF
+		$MC2KERFD9:=$MACHINE2KERF
+	END
+	IF $DVALUE=10
+		$KERFD10:=$KERF
+		$MC2KERFD10:=$MACHINE2KERF
+	END
+	IF $DVALUE=11
+		$KERFD11:=$KERF
+		$MC2KERFD11:=$MACHINE2KERF
+	END
+	IF $DVALUE=12
+		$KERFD12:=$KERF
+		$MC2KERFD12:=$MACHINE2KERF
+	END
+	IF $DVALUE=13
+		$KERFD13:=$KERF
+		$MC2KERFD13:=$MACHINE2KERF
+	END
+	IF $DVALUE=14
+		$KERFD14:=$KERF
+		$MC2KERFD14:=$MACHINE2KERF
+	END
+	IF $DVALUE=15
+		$KERFD15:=$KERF
+		$MC2KERFD15:=$MACHINE2KERF
+	END
+	IF $DVALUE=16
+		$KERFD16:=$KERF
+		$MC2KERFD16:=$MACHINE2KERF
+	END
+	IF $DVALUE=17
+		$KERFD17:=$KERF
+		$MC2KERFD17:=$MACHINE2KERF
+	END
+	IF $DVALUE=18
+		$KERFD18:=$KERF
+		$MC2KERFD18:=$MACHINE2KERF
+	END
+	IF $DVALUE=19
+		$KERFD19:=$KERF
+		$MC2KERFD19:=$MACHINE2KERF
+	END
+	IF $DVALUE=20
+		$KERFD20:=$KERF
+		$MC2KERFD20:=$MACHINE2KERF
+	END
+
+[KERF VALUE]
+	{SET KERF D VALUES}
+IF $CONFIGUSEDVALUE=1
+  // D value as kerf
+  ARGUMENT=$DVALUE
+  FORMAT=D%02d
+ELSE
+  IF $CONFIGUSEDVALUE=0
+    // Kerf as actual kerf (typically with a leading K)
+    MODAL_ARGUMENT=$KERF
+    ARGUMENT=$KERF * $CONVERSION * $KERFDECIMALSHIFT
+    FORMAT=K{XY FORMAT}
+  ELSE
+    IF $CONFIGUSEDVALUE=3
+      // For TurboNest CFFs that want a D register but can't use a Process
+      // Parameter column, use the Kerf column as the D register number
+      ARGUMENT=$KERF * $CONVERSION
+      FORMAT=D%02.0lf
+    END
+  END
+END
+
+[KERF D1]
+ARGUMENT=$KERFD1*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2001={XY FORMAT}(D01)
+ELSE
+	FORMAT={LINENO :M}#2001={XY FORMAT}
+END
+
+[KERF D2]
+ARGUMENT=$KERFD2*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2002={XY FORMAT}(D02)
+ELSE
+	FORMAT={LINENO :M}#2002={XY FORMAT}
+END
+
+[KERF D3]
+ARGUMENT=$KERFD3*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2003={XY FORMAT}(D03)
+ELSE
+	FORMAT={LINENO :M}#2003={XY FORMAT}
+END
+	
+[KERF D4]
+ARGUMENT=$KERFD4*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2004={XY FORMAT}(D04)
+ELSE
+	FORMAT={LINENO :M}#2004={XY FORMAT}
+END
+	
+	
+[KERF D5]
+ARGUMENT=$KERFD5*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2005={XY FORMAT}(D05)
+ELSE
+	FORMAT={LINENO :M}#2005={XY FORMAT}
+END
+	
+[KERF D6]
+ARGUMENT=$KERFD6*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2006={XY FORMAT}(D06)
+ELSE
+	FORMAT={LINENO :M}#2006={XY FORMAT}
+END
+
+[KERF D7]
+ARGUMENT=$KERFD7*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2007={XY FORMAT}(D07)
+ELSE
+	FORMAT={LINENO :M}#2007={XY FORMAT}
+END
+
+[KERF D8]
+ARGUMENT=$KERFD8*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2008={XY FORMAT}(D08)
+ELSE
+	FORMAT={LINENO :M}#2008={XY FORMAT}
+END
+
+[KERF D9]
+ARGUMENT=$KERFD9*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2009={XY FORMAT}(D09)
+ELSE
+	FORMAT={LINENO :M}#2009={XY FORMAT}
+END
+
+[KERF D10]
+ARGUMENT=$KERFD10*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2010={XY FORMAT}(D10)
+ELSE
+	FORMAT={LINENO :M}#2010={XY FORMAT}
+END
+
+[KERF D11]
+ARGUMENT=$KERFD11*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2011={XY FORMAT}(D11)
+ELSE
+	FORMAT={LINENO :M}#2011={XY FORMAT}
+END
+
+[KERF D12]
+ARGUMENT=$KERFD12*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2012={XY FORMAT}(D12)
+ELSE
+	FORMAT={LINENO :M}#2012={XY FORMAT}
+END
+
+[KERF D13]
+ARGUMENT=$KERFD13*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2013={XY FORMAT}(D13)
+ELSE
+	FORMAT={LINENO :M}#2013={XY FORMAT}
+END
+
+[KERF D14]
+ARGUMENT=$KERFD14*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2014={XY FORMAT}(D14)
+ELSE
+	FORMAT={LINENO :M}#2014={XY FORMAT}
+END
+
+[KERF D15]
+ARGUMENT=$KERFD15*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2015={XY FORMAT}(D15)
+ELSE
+	FORMAT={LINENO :M}#2015={XY FORMAT}
+END
+
+[KERF D16]
+ARGUMENT=$KERFD16*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2016={XY FORMAT}(D16)
+ELSE
+	FORMAT={LINENO :M}#2016={XY FORMAT}
+END
+
+[KERF D17]
+ARGUMENT=$KERFD17*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2017={XY FORMAT}(D17)
+ELSE
+	FORMAT={LINENO :M}#2017={XY FORMAT}
+END
+
+[KERF D18]
+ARGUMENT=$KERFD18*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2018={XY FORMAT}(D18)
+ELSE
+	FORMAT={LINENO :M}#2018={XY FORMAT}
+END
+
+[KERF D19]
+ARGUMENT=$KERFD19*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2019={XY FORMAT}(D19)
+ELSE
+	FORMAT={LINENO :M}#2019={XY FORMAT}
+END
+
+[KERF D20]
+ARGUMENT=$KERFD20*$CONVERSION
+IF 'NSETTING(CFF Options, Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2020={XY FORMAT}(D20)
+ELSE
+	FORMAT={LINENO :M}#2020={XY FORMAT}
+END
+
+//Machine 2 kerf...
+[MC2KERF D1]
+ARGUMENT=$MC2KERFD1*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2001={XY FORMAT}(D01)
+ELSE
+	FORMAT={LINENO :M}#2001={XY FORMAT}
+END
+
+[MC2KERF D2]
+ARGUMENT=$MC2KERFD2*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2002={XY FORMAT}(D02)
+ELSE
+	FORMAT={LINENO :M}#2002={XY FORMAT}
+END
+
+[MC2KERF D3]
+ARGUMENT=$MC2KERFD3*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2003={XY FORMAT}(D03)
+ELSE
+	FORMAT={LINENO :M}#2003={XY FORMAT}
+END
+	
+[MC2KERF D4]
+ARGUMENT=$MC2KERFD4*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2004={XY FORMAT}(D04)
+ELSE
+	FORMAT={LINENO :M}#2004={XY FORMAT}
+END
+	
+	
+[MC2KERF D5]
+ARGUMENT=$MC2KERFD5*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2005={XY FORMAT}(D05)
+ELSE
+	FORMAT={LINENO :M}#2005={XY FORMAT}
+END
+	
+[MC2KERF D6]
+ARGUMENT=$MC2KERFD6*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2006={XY FORMAT}(D06)
+ELSE
+	FORMAT={LINENO :M}#2006={XY FORMAT}
+END
+
+[MC2KERF D7]
+ARGUMENT=$MC2KERFD7*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2007={XY FORMAT}(D07)
+ELSE
+	FORMAT={LINENO :M}#2007={XY FORMAT}
+END
+
+[MC2KERF D8]
+ARGUMENT=$MC2KERFD8*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2008={XY FORMAT}(D08)
+ELSE
+	FORMAT={LINENO :M}#2008={XY FORMAT}
+END
+
+[MC2KERF D9]
+ARGUMENT=$MC2KERFD9*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2009={XY FORMAT}(D09)
+ELSE
+	FORMAT={LINENO :M}#2009={XY FORMAT}
+END
+
+[MC2KERF D10]
+ARGUMENT=$MC2KERFD10*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2010={XY FORMAT}(D10)
+ELSE
+	FORMAT={LINENO :M}#2010={XY FORMAT}
+END
+
+[MC2KERF D11]
+ARGUMENT=$MC2KERFD11*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2011={XY FORMAT}(D11)
+ELSE
+	FORMAT={LINENO :M}#2011={XY FORMAT}
+END
+
+[MC2KERF D12]
+ARGUMENT=$MC2KERFD12*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2012={XY FORMAT}(D12)
+ELSE
+	FORMAT={LINENO :M}#2012={XY FORMAT}
+END
+
+[MC2KERF D13]
+ARGUMENT=$MC2KERFD13*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2013={XY FORMAT}(D13)
+ELSE
+	FORMAT={LINENO :M}#2013={XY FORMAT}
+END
+
+[MC2KERF D14]
+ARGUMENT=$MC2KERFD14*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2014={XY FORMAT}(D14)
+ELSE
+	FORMAT={LINENO :M}#2014={XY FORMAT}
+END
+
+[MC2KERF D15]
+ARGUMENT=$MC2KERFD15*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2015={XY FORMAT}(D15)
+ELSE
+	FORMAT={LINENO :M}#2015={XY FORMAT}
+END
+
+[MC2KERF D16]
+ARGUMENT=$MC2KERFD16*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2016={XY FORMAT}(D16)
+ELSE
+	FORMAT={LINENO :M}#2016={XY FORMAT}
+END
+
+[MC2KERF D17]
+ARGUMENT=$MC2KERFD17*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2017={XY FORMAT}(D17)
+ELSE
+	FORMAT={LINENO :M}#2017={XY FORMAT}
+END
+
+[MC2KERF D18]
+ARGUMENT=$MC2KERFD18*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2018={XY FORMAT}(D18)
+ELSE
+	FORMAT={LINENO :M}#2018={XY FORMAT}
+END
+
+[MC2KERF D19]
+ARGUMENT=$MC2KERFD19*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2019={XY FORMAT}(D19)
+ELSE
+	FORMAT={LINENO :M}#2019={XY FORMAT}
+END
+
+[MC2KERF D20]
+ARGUMENT=$MC2KERFD20*$CONVERSION
+IF 'NSETTING(CFF Options, Machine 2 Output Dword on Cutter Comp Lines) = 1
+	FORMAT={LINENO :M}#2020={XY FORMAT}(D20)
+ELSE
+	FORMAT={LINENO :M}#2020={XY FORMAT}
+END
+
+
+[OUTPUT DWELL]
+IF $DWELL!=0
+  // Don't output 0 dwell times.  Change the above line if you need to do so.
+  ARGUMENT=$DWELL * $DWELLDECIMALSHIFT
+  // Dwell times are usually specified with an F, X, or P value
+  FORMAT={LINENO :M}G04F{DWELL FORMAT}
+END
+
+[OPTIONAL S0]
+IF 'NSETTING(CFF Options,Optional S0 Setting) = 1
+	(S0)
+ELSEIF 'NSETTING(CFF Options,Optional S0 Setting) = 2
+	S0
+END
+
+[RESERVED RANGE MESSAGE]
+IF ($PROGNUMCHANGED > 0)
+	(Program number / subroutine number changed due to being between {LOWER RANGE} and {UPPER RANGE})
+	$PROGNUMCHANGED := 0
+END
+
+[LOWER RANGE]
+ARGUMENT=$PROGNUMRESERVEDRANGESTART
+FORMAT=%d
+
+[UPPER RANGE]
+ARGUMENT=$PROGNUMRESERVEDRANGEEND
+FORMAT=%d
+
+[CONDITIONS PART OF THE CFF]
+
+[MAXLINENO]
+9999
+
+[TORCH SPACING REQUIRED]
+($TORCHSPACING != $PREVTORCHSPACING || $NUMTORCHES != $PREVNUMTORCHES)
+
+[KERF STILL ON]
+($KERFDIR = LEFT || $KERFDIR = RIGHT)
+
+[MOTION REQUIRED]
+(($X - $LASTX)^2 + ($Y - $LASTY)^2)^0.5 > 0.001
+
+[NORMAL AXIS DIRECTION]
+(($AXIS_SWAP_TYPE=NONE) || ($AXIS_SWAP_TYPE=SWAP90) || ($AXIS_SWAP_TYPE=SWAP180) || ($AXIS_SWAP_TYPE=SWAP270))
+
+[INSIDE CW ARC TOO SMALL FOR KERF]
+($CONFIGUSEDVALUE<3 && ($MOTIONTYPE=2 && $KERFDIR=RIGHT && $RADIUS<$KERF*0.5))
+
+[INSIDE CCW ARC TOO SMALL FOR KERF]
+($CONFIGUSEDVALUE<3 && ($MOTIONTYPE=3 && $KERFDIR=LEFT && $RADIUS<$KERF*0.5))
+
+[ARC TOO LINEAR]
+({CHORD LENGTH}<(($RADIUS^2-($RADIUS-0.002)^2)^0.5)*2 && $RADIUS>3 && $ARCANGLE<10)
+
+[ARC RADIUS TOO SMALL]
+($RADIUS < 0.008000 || ({CHORD LENGTH} < 0.00200 && $ARCANGLE<10))
+
+[CHECK FOR ARC TOO SMALL]
+$ARCTOOSMALL:=0
+IF {INSIDE CW ARC TOO SMALL FOR KERF}
+  $ARCTOOSMALL:=1
+END
+IF {INSIDE CCW ARC TOO SMALL FOR KERF}
+  $ARCTOOSMALL:=1
+END
+IF {ARC TOO LINEAR}
+  $ARCTOOSMALL:=1
+END
+IF {ARC RADIUS TOO SMALL}
+  $ARCTOOSMALL:=1
+END
+IF $FORCELINEARMOTION=TRUE
+  $ARCTOOSMALL:=1
+  $FORCELINEARMOTION:=FALSE
+END
+
+[RAPID INIT MOTION ALLOWED]
+(($X - $INITPTX)^2 + ($Y - $INITPTY)^2)^0.5 > 0.0100 && $PROCESSONSTATE = FALSE
+
+[CHORD LENGTH]
+(($X - $LASTX)^2 + ($Y - $LASTY)^2)^0.5
+
+[CNC TOKEN DEBUG]
+// See FogBugz #2923 for details
+0
+
+[CHARACTER REPLACE TABLE]
+(|_
+)|_
+
+[SP]
+ARGUMENT=$SPACE
+FORMAT=%c
+
+[NSP]
+// This section is called for the first instance after an N number (at least that's the goal)
+IF $USELINENUMBERS=EVERYLINE
+  
+END
+
+[POST MOTION EXACT STOP]
+//G04 dwell/exact stop
+IF $NEXTPROFILEMOTION=NONE
+  $ANGLECHANGE:=0
+ELSE
+  $ANGLECHANGE:='ABS($ENDTANGENTANGLE-$NEXTSTARTTANGENTANGLE)
+END
+
+IF $ANGLECHANGE>180
+  $ANGLECHANGE:='ABS($ANGLECHANGE-360.0)
+END
+
+IF $ANGLECHANGE>=$EXACTSTOPANGLE
+	{LINENO :M}{DWELLTIME :M}
+	$CURRENTMOTION :=-1
+END
+
+[DWELLTIME]
+IF $DWELLTIME > 0
+	ARGUMENT=$DWELLTIME
+	FORMAT=G04 X%0.1f
+END
+	
+[NOZZLE CLEAN]
+	IF 'TEXTLEN($NOZZLECLEANCODE) > 0
+		ARGUMENT=$NOZZLECLEANCODE
+		FORMAT={LINENO :M}M98P%s
+	END
+	
+[XY ON SHEET]
+(($X>=$SHEETMINX) && ($X<=$SHEETMAXX) && ($Y>=$SHEETMINY) && ($Y<=$SHEETMAXY))
+
+[LAST XY ON SHEET]
+(($LASTX>=$SHEETMINX) && ($LASTX<=$SHEETMAXX) && ($LASTY>=$SHEETMINY) && ($LASTY<=$SHEETMAXY))
+
+[PREPIERCE PROFILE]
+($PROFILE_IS_PREPIERCE=TRUE)
+
+[EDGE PIERCE]
+($PROFILE_EDGE_PIERCED=TRUE)
+
+[CONTINUATION CLC]
+($LASTCUTCLC = 1)
+
+[PREPIERCED PROFILE]
+($PIERCEISPREPIERCED=TRUE)
+
+[PRONEST 9.1]
+(($MODEL_VERSION_MAJOR=9 && $MODEL_VERSION_MINOR>=1) || $MODEL_VERSION_MAJOR>=10)
+
+[PRONEST 13]
+($MODEL_VERSION_MAJOR>=13)
+
+[CFFDIR]
+IF $CFFDIR=none
+  $CFFDIR:='SUBSTRING($CFFNAME,'RANGE(0,'TEXTLEN($CFFNAME)-'TEXTLEN($ROOTCFFNAME)-6))
+END
+ARGUMENT=$CFFDIR
+FORMAT=%s
+// As of the 8.3 release version, the CFFDIR variable is optional in the user
+// defined variables.  In all prior release versions, it is required.
+
+[ROOT CFF NAME]
+ARGUMENT=$ROOTCFFNAME
+FORMAT=%s
+
+[POST PROCESSING]
+// Uncomment if an executable is needed
+//'EXECUTE "{CFFDIR}\{ROOT CFF NAME}.exe" "-log" "{CNC NAME}" $WAIT
+
+[SUBROUTINE MODE]
+IF $SUBROUTINEMODE=ABSOLUTE || ($SUBROUTINEMODE=SAME_AS_MAIN && $MODE=ABSOLUTE)
+	{LINENO :M}G90
+	$MODE:=ABSOLUTE
+ELSE
+	{LINENO :M}G91
+	$MODE:=INCREMENTAL
+END
+
+[ADDRESS]
+IF $ADDRESS >= $PROGNUMRESERVEDRANGESTART && $ADDRESS <= $PROGNUMRESERVEDRANGEEND
+	IF 'NSETTING(CFF Options, Subs reserved range behavior) = 0
+		ARGUMENT=$ADDRESS + ($PROGNUMRESERVEDRANGEEND - $PROGNUMRESERVEDRANGESTART)+1
+	ELSE
+		ARGUMENT=$ADDRESS - $PROGNUMRESERVEDRANGESTART + 1
+	END
+	
+	$PROGNUMCHANGED := 1
+ELSE
+	ARGUMENT=$ADDRESS
+END
+//either format like n or nnnn
+IF 'NSETTING(CFF Options, ProgramNumberFormat) = 1
+	FORMAT=%d
+ELSE
+	FORMAT=%04d
+END
+
+[SUBROUTINE START]
+$INASUB:=1
+$CUTCONDTOGGLE := 0
+
+//check the sub does not fall in the reserved range....
+IF $PARTNAMEASCOMMENT = TRUE
+	|O{ADDRESS} {PART NAME COMMENT :M}
+ELSE
+	|O{ADDRESS}
+END
+
+IF 'NSETTING(CFF Options, 3002 variable setting) = 3
+	{LINENO :M}#3002=0 (TIMER)
+END
+
+IF 'NSETTING(CFF Options,M75x subs) > 0 && {IGNORE CROP AND SCU CUTS}
+	{LINENO :M}M750
+	$PARTSTARTENDCODE := 1
+END
+
+$LINENUMBER:=0
+
+$ZEROPTX:=$INITPTX
+$ZEROPTY:=$INITPTY
+{SUBROUTINE MODE :M}
+
+$SUBSTARTX := $X
+$SUBSTARTY := $Y
+
+IF 'NSETTING(CFF Options,G52 Coord Setting) > 0
+	IF ($ZEROPTX)<0
+		$ZEROPTX:=0
+	END
+
+	IF ($ZEROPTY)<0
+		$ZEROPTY:=0
+	END
+END
+
+{LINENO :M}M200
+
+IF 'NSETTING(CFF Options, Mitsubishi Line numbers) = 1
+	GOTO1
+END
+
+[SUBROUTINE RETURN]
+$CUTCONDTOGGLE := 0
+IF $HEADSTATUS != $HEADUP && 'NSETTING(CFF Options,Subs Lift Code) = 2
+  {LINENO :M}M199
+  $HEADSTATUS := $HEADUP
+END
+// If running all incremental, move back to the subroutine start location
+IF $SUBROUTINEMODE=INCREMENTAL || ($SUBROUTINEMODE=SAME_AS_MAIN && $MODE=INCREMENTAL)
+  $X := $SUBSTARTX
+  $Y := $SUBSTARTY
+  {RAPID MOTION}
+ELSE
+	// Output a rapid move code + safe G40
+	IF $KERFSTATUS=41 || $KERFSTATUS=42
+		{LINENO :M}{RAPID MOTION CODE :M}{SAFE G40 :M}
+	END
+END
+$ZEROPTX:=$LASTZEROPTX
+$ZEROPTY:=$LASTZEROPTY
+
+// Only want to output the M751 if the M750 was output
+IF $PARTSTARTENDCODE = 1
+	{LINENO :M}M751
+	$PARTSTARTENDCODE := 0
+END
+
+M99( PART END )
+$INASUB:=0
+// Need to ensure we cancel the offset at the start of the next part
+$KERFSTATUS:=0
+
+[SAFE G40]
+{KERF DIRECTION}
+
+[G40]
+{KERF OFF CODE}
+$KERFSTATUS:=40
+$KERFDIR := OFF
+
+[SUBROUTINE CALL]
+{CANCEL CURRENT OFFSET}
+{OUTPUT TORCH SPACING}
+{ACTIVATE NEXT OFFSET}
+
+IF 'NSETTING(CFF Options, Mitsubishi Line numbers) = 1
+	$CALLINGSUBS := 1
+END
+
+IF 'NSETTING(CFF Options,G52 Coord Setting) > 0
+	IF ($X)<0
+		$ZEROPTX:=$X
+		$INITPTX:=0
+	END
+	
+	IF ($Y)<0
+		$ZEROPTY:=$Y
+		$INITPTY:=0
+	END
+END
+
+IF $SUBROUTINEMODE=ABSOLUTE || ($SUBROUTINEMODE=SAME_AS_MAIN && $MODE=ABSOLUTE)
+	IF $USELINENUMBERS = STARTOFPROFILE
+
+		IF $CONFIGSOPLINENOLOCATION = 0
+			{SOP LINENO 0 :M}G52{CURRENTX}{CURRENTY}
+		ELSE
+			{SOP LINENO 1 :M}G52{CURRENTX}{CURRENTY}
+		END
+	ELSE
+		{LINENO :M}G52{CURRENTX}{CURRENTY}
+	END
+ELSE
+  $KERFSTATUS:=0
+  IF $MODE=ABSOLUTE
+    {LINENO :M}G90{RAPID MOTION GCODE}{SAFE G40 :M}{CURRENTX}{CURRENTY}
+  ELSE
+    {LINENO :M}G91{RAPID MOTION GCODE}{SAFE G40 :M}{CURRENTX}{CURRENTY}
+  END
+END
+
+IF 'abs($SUBRANGLE) > 0.0001
+	{LINENO :M}G68XY{SUB ROT ANGLE}
+END
+{LINENO :M}M98P{ADDRESS}( {PARTNAME} )
+//M98P{ADDRESS}( {PARTNAME} )
+//IF 'abs($SUBRANGLE) > 0.0001
+	IF 'NSETTING(CFF Options, Subs G69 Code) = 1
+		{LINENO :M}G69
+	END
+//END
+	
+IF 'NSETTING(CFF Options, Subs Lift Code) = 0
+	{LINENO :M}G0G28Z0
+	$DIDG28Z0 := 1
+ELSEIF 'NSETTING(CFF Options, Subs Lift Code) = 1
+	{LINENO :M}M199
+END
+
+IF 'NSETTING(CFF Options,Subs G52 Zero) = 0 && $SUBROUTINEMODE=ABSOLUTE || ($SUBROUTINEMODE=SAME_AS_MAIN && $MODE=ABSOLUTE)
+  {LINENO :M}G52X0Y0
+END
+
+[SUB ROT ANGLE]
+ARGUMENT = $SUBRANGLE
+FORMAT=R%1.2lf
+
+[SUBROUTINES USE REGIONS]
+1
+
+[USE ADDRESS FOR FILENAME]
+// Set this to a 1 to enable the checkbox in the output dialog to have the $ADDRESS
+// value at the start of each sheet become the filename.  With this, if you have
+// a starting program number (which usually gets shoved into address) of 1000, your
+// file names become something like 1000.cnc, 1005.cnc, 1012.cnc, etc instead of
+// being based on the nif file name.
+0
+
+[MAINTAIN SUBROUTINE ADDRESSES]
+IF 'NSETTING(CFF Options,Scheduling System) = 1
+	1
+ELSE
+	0
+END
+
+; Reading from right to left for "subroutine types:"
+;  none, profile, part, profile cluster, part cluster, optimized clustering
+;   2^0,   2^1,   2^2       2^3             2^4            2^5
+;
+; Reading from right to left for "subroutine modes:"
+;  incremental, absolute, same as main program
+;     2^0         2^1           2^2
+
+[SUBROUTINE PROPERTIES]
+Subroutine Types=000101
+Rotation Angle=1
+Subroutine Modes=010
+Nested Subroutines=0
+Subroutine Nests=0
+Allow CA Subroutine Option=0
+
+[Custom Settings]
+{Use Percent At Start}
+{Program Number Format Setting}
+{Mitsubishi Header Style Setting}
+{Add Crop SCU setting}
+{Program End Code}
+{M67 Program End Code}
+{Use Percent At End}
+{Condition Variables Setting}
+{Condition Variables Parentheses Setting}
+{SheetXY Variables Setting}
+{High Speed Variables Setting}
+{Mitsubishi Cutter Comp Lines}
+{D Word on Cutter Comp Line}
+//Machine 2
+{Dual Machine Output Setting}
+{Machine 2 Condition Variables Setting}
+{Machine 2 Condition Variables Parentheses Setting}
+{Machine 1 Name Setting}
+{Machine 2 Name Setting}
+{Machine 2 SheetXY Variables Setting}
+{Machine 2 High Speed Variables Setting}
+{Machine 2 Mitsubishi Cutter Comp Lines}
+{Machine 2 D Word on Cutter Comp Line}
+{Machine 2 M100 Setting}
+{Machine 2 M100 Thickness Setting}
+{Machine 2 M100 Parentheses}
+{Machine 2 Thickplate Variables Setting}
+{Machine 2 Repierce Dwell Setting}
+{Prep Subroutine Call MC2 setting}
+
+{Mitsubishi D Word}
+{Repierce Dwell Setting}
+{Thickplate Variables Setting}
+{3002 Variable Setting}
+{M100 Setting}
+{M100 Thickness Setting}
+{M100 Parentheses}
+
+{M98 Sheet detection}
+{M98 Parentheses}
+{G92 Setting}
+{G52 Setting}
+{M200 Setting}
+{Auto Gas Setting}
+{Number Profiles Setting}
+{Output M198M101}
+{Laser Off Setting}
+{Nozzle Clean On Off}
+{Nozzle Clean Macro}
+{Force M199 Off}
+{M199 Between Processes}
+{M199 After Each Scribe Setting}
+{M199 Between Parts}
+{Start Nest Home}
+{End Nest Home}
+{Mitsubishi End of Program M199 M78}
+{Height sensor distance}
+{Offsheet start strategy}
+{Override Offsheet Extensions}
+{Mitsubishi M75x sub codes}
+{Mitsubishi sub lift code}
+{Mitsubishi sub G69 setting}
+{Mitsubishi sub G52 setting}
+{Mitsubishi line number setting}
+{Mitsubishi scheduling system}
+{Mitsubishi sub address setting}
+{Optional S0 Setting}
+{Exact Stop Check Setting}
+{Mitsubishi sub reserved range behavior}
+{Mitsubishi sub address lower reserved range}
+{Mitsubishi sub address upper reserved range}
+{Purge Between Process Setting}
+{Cut Condition Code}
+{Remote 360 Programmer Setting}
+{Program Header Comments Setting}
+{Remote 360 Cutting Distance Setting}
+{Height Control End of profile}
+{Cancel Cut Condition}
+{G52 Coordinates}
+{Mitsubishi Line Numbers}
+{Mitsubishi G Code Style}
+{Purge Code}
+
+[Use Percent At Start]
+Section=CFF Options
+Ident=PercentAtStart
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Choices=<0>No percent;<1>Percent on each nest;<2>Percent on start of first nest
+Tab=Start/End of file
+Category=Start of file
+Caption=Include % at start of file
+
+[Program Number Format Setting]
+Section=CFF Options
+Ident=ProgramNumberFormat
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Choices=<0>O0001;<1>O1;
+Tab=Start/End of file
+Category=Start of file
+Caption=Program number format
+
+[Mitsubishi Header Style Setting]
+Section=CFF Options
+Ident=HeaderStyle
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Choices=<0>Standard;<1>Remote 360 system;<2>Newer fiber laser style;
+Tab=Program header information
+Category=Start of file
+Caption=Header style
+Hidden=1
+
+[Add Crop SCU setting]
+Section=CFF Options
+ident=IgnoreSCUandCrop
+Default=0
+DataType=Boolean
+Units=None
+Tab=Program header information
+Category=Start of file
+Caption=Ignore crop and skeleton cuts in part count
+Hidden=1
+
+[M67 Program End Code]
+Section=CFF Options
+Ident=M67 ProgramEndCode
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No M67;<1>M67;
+Tab=Start/End of file
+Category=End of file M67 code
+Caption=M67 program end code
+
+[Program End Code]
+Section=CFF Options
+Ident=ProgramEndCode
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>M30;<1>M02;
+Tab=Start/End of file
+Category=End of file
+Caption=Program end code
+
+[Use Percent At End]
+Section=CFF Options
+Ident=PercentAtEnd
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No percent;<1>Percent on each nest;<2>Percent only on end of last nest
+Tab=Start/End of file
+Category=End of file
+Caption=Include % at end of file
+
+[Machine 2 Condition Variables Setting]
+Section=CFF Options
+Ident=Machine 2 condition variables setting
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No condition variables;<1>#101 ~ #110;<2>#101 ~ #117;<3>#197 ~ #198 only;<4>#101 ~ #111;<5>#107 ~ #111;<6>#106 ~ #112;<7>#101 ~ #112 (#105 is 106);
+Tab=Dual Machine
+Category=Machine 2 Variables
+Caption=Condition variables
+
+[Machine 2 Condition Variables Parentheses Setting]
+Section=CFF Options
+Ident=Machine 2 Parentheses after cut conditions
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No parentheses;<1>Parentheses;
+Tab=Dual Machine
+Category=Machine 2 Variables
+Caption=Condition variable Parentheses
+
+[Machine 2 SheetXY Variables Setting]
+Section=CFF Options
+Ident=Machine 2 sheet xy variables setting
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No variables;<1>Use #121/122;<2>Use #612/#613;
+Tab=Dual Machine
+Category=Machine 2 Variables
+Caption=Sheet XY variables
+
+[Machine 2 High Speed Variables Setting]
+Section=CFF Options
+Ident=Machine 2 High Speed variables setting
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No variables;<1>Use #197/198;
+Tab=Dual Machine
+Category=Machine 2 Variables
+Caption=High speed variables
+
+[Machine 2 Mitsubishi Cutter Comp Lines]
+Section=CFF Options
+Ident=Machine 2 Output Cutter Comp Lines
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>Do not output;<1>Output cutter compensation lines;
+Tab=Dual Machine
+Category=Machine 2 Variables
+Caption=Cutter compensation
+
+[Machine 2 Condition Variables Parentheses Setting]
+Section=CFF Options
+Ident=Machine 2 Parentheses after cut conditions
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No parentheses;<1>Parentheses;
+Tab=Dual Machine
+Category=Machine 2 Variables
+Caption=Condition variable parentheses
+
+[Machine 2 D Word on Cutter Comp Line]
+Section=CFF Options
+Ident=Machine 2 Output Dword on Cutter Comp Lines
+Default=0
+Hidden=1
+DataType=Integer
+Limit=Choices
+Units=None
+Tab=Dual Machine
+Category=Machine 2 Variables
+Choices=<0>Do not output (D<n>) after cutter comp;<1>Output (D<n>) after cutter comp;
+Caption=Output D word on cutter comp line
+
+[Machine 2 Repierce Dwell Setting]
+Section=CFF Options
+Ident=Machine 2 Repierce variables setting
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>Do not output re-pierce dwell;<1>Output re-pierce dwell;
+Tab=Dual Machine
+Category=Variables
+Caption=Re-pierce dwell
+
+[Machine 2 Thickplate Variables Setting]
+Section=CFF Options
+Ident=Machine 2 thickplate variables setting
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No thickplate variables;<1>Thickplate variables;
+Tab=Dual Machine
+Category=Variables
+Caption=Thickplate variables
+
+[Prep Subroutine Call MC2 setting]
+Section=CFF Options
+ident=PrepSubCallMC2
+Default=0
+DataType=Boolean
+Units=None
+Tab=Dual Machine
+Category=Start of file
+Caption=Output Prep subroutine call M98P8999
+Hidden=1
+
+[Condition Variables Setting]
+Section=CFF Options
+Ident=condition variables setting
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No condition variables;<1>#101 ~ #110;<2>#101 ~ #117;<3>#197 ~ #198 only;<4>#101 ~ #111;<5>#107 ~ #111;<6>#106 ~ #112;<7>#101 ~ #112 (#105 is 106);<8>#108 ~ #112;<9>#101 ~ #112;
+Tab=Mitsubishi
+Category=Variables
+Caption=Condition variables
+
+[Condition Variables Parentheses Setting]
+Section=CFF Options
+Ident=Parentheses after cut conditions
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No parentheses;<1>Parentheses;
+Tab=Mitsubishi
+Category=Variables
+Caption=Condition variable parentheses
+
+[SheetXY Variables Setting]
+Section=CFF Options
+Ident=sheet xy variables setting
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No variables;<1>Use #121/122;<2>Use #612/#613;
+Tab=Mitsubishi
+Category=Variables
+Caption=Sheet XY variables
+
+[High Speed Variables Setting]
+Section=CFF Options
+Ident=High Speed variables setting
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No variables;<1>Use #197/198;
+Tab=Mitsubishi
+Category=Variables
+Caption=High speed variables
+
+[Mitsubishi Cutter Comp Lines]
+Section=CFF Options
+Ident=Output Cutter Comp Lines
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>Do not output;<1>Output cutter compensation lines;
+Tab=Mitsubishi
+Category=Variables
+Caption=Cutter compensation
+
+[Mitsubishi D Word]
+Section=CFF Options
+Ident=Mitsubishi D Word Setting
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<1>Output D Word;<2>Do not output D word;
+Tab=Mitsubishi
+Category=Kerf
+Caption=D word output
+
+[Repierce Dwell Setting]
+Section=CFF Options
+Ident=Repierce variables setting
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>Do not output re-pierce dwell;<1>Output re-pierce dwell;
+Tab=Mitsubishi
+Category=Variables
+Caption=Re-pierce dwell
+
+[Thickplate Variables Setting]
+Section=CFF Options
+Ident=thickplate variables setting
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No thickplate variables;<1>Thickplate variables;
+Tab=Mitsubishi
+Category=Variables
+Caption=Thickplate variables
+
+[3002 Variable Setting]
+Section=CFF Options
+Ident=3002 variable setting
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>Do not output #3002;<1>Output #3002 in header;<2>Output #3002 on first profile;<3>Output #3002 at every sub start;
+Tab=Mitsubishi
+Category=Variables
+Caption=#3002 timer variable
+
+[Dual Machine Output Setting]
+Section=CFF Options
+Ident=Dual Machine Output
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>Single machine output;<1>Dual machine output;
+Tab=Dual Machine
+Category=Dual Machine
+Caption=Enable dual machine output
+
+[Machine 1 Name Setting]
+Section=CFF Options
+Ident=Machine 1 ID
+Default=Machine 1
+DataType=String
+Limit=None
+Units=None
+Hidden=1
+Tab=Dual Machine
+Category=Machine 1 name
+Caption=Machine 1 Identifier
+
+[Machine 2 Name Setting]
+Section=CFF Options
+Ident=Machine 2 ID
+Default=Machine 2
+DataType=String
+Limit=None
+Units=None
+Hidden=1
+Tab=Dual Machine
+Category=Machine 2 name
+Caption=Machine 2 Identifier
+
+[M100 Setting]
+Section=CFF Options
+Ident=M100
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>M100 with code;<1>M100 code in parentheses;<2>No M100 codes;<3>M100 on it's own;
+Tab=Mitsubishi
+Category=M100 code
+Caption=Use (, ) around M100 line
+
+[M100 Thickness Setting]
+Section=CFF Options
+Ident=M100 Thickness
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>Contained within M100 code;<2>2 digit thickness;<3>3 digit thickness;<4>4 digit thickness
+Tab=Mitsubishi
+Category=M100 code
+Caption=M100 thickness code
+
+[M100 parentheses]
+Section=CFF Options
+Ident=Parentheses after m100
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No parentheses;<1>Parentheses
+Tab=Mitsubishi
+Category=M100 Code
+Caption=Brackets found after the M100 line
+
+[Machine 2 M100 Setting]
+Section=CFF Options
+Ident=Machine 2 M100
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>M100 with code;<1>M100 code in parentheses;<2>No M100 codes;<3>M100 on it's own;
+Tab=Dual Machine
+Category=Machine 2 M100 code
+Caption=Use (, ) around M100 line
+
+[Machine 2 M100 Thickness Setting]
+Section=CFF Options
+Ident=Machine 2 M100 Thickness
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>Contained within M100 code;<2>2 digit thickness;<3>3 digit thickness;<4>4 digit thickness
+Tab=Dual Machine
+Category=Machine 2 M100 code
+Caption=M100 thickness code
+
+[Machine 2 M100 parentheses]
+Section=CFF Options
+Ident=Machine 2 parentheses after m100
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No parentheses;<1>Parentheses
+Tab=Dual Machine
+Category=Machine 2 M100 Code
+Caption=Brackets found after the M100 line
+
+[M98 Sheet detection]
+Section=CFF Options
+Ident=include edge det line
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>Don't output M98P7995H#149...;<1>Output M98P7995H#149...
+Tab=Mitsubishi
+Category=M98P7995H#149
+Caption=M98P7995H#149... line
+
+[M98 Parentheses]
+Section=CFF Options
+Ident=Parentheses after edge det line
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No parentheses;<1>Parentheses
+Tab=Mitsubishi
+Category=M98P7995H#149
+Caption=Parentheses found after the M98P7995H line
+
+[Number Profiles Setting]
+Section=CFF Options
+Ident=UseBND
+Default=1
+Hidden=1
+DataType=Integer
+Limit=Choices
+Units=None
+Tab=Mitsubishi
+Category=Profiles
+Choices=<0>No BND;<1>Use BND;<2>Use CONT#;
+Caption=Number profiles with BND or CONT#:
+
+[Output M198M101]
+Section=CFF Options
+Ident=M198M101 line
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No M198M101;<1>Output M198M101;<2>Output M101 after laser off (cancel kerf);
+Tab=Mitsubishi
+Category=Laser control
+Caption=M198M101
+
+[Laser Off Setting]
+Section=CFF Options
+Ident=LaserOff
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>M121;<1>M87;<2>M87 off, M121 off&up;<3>Use PP file selection;
+Tab=Mitsubishi
+Category=Laser control
+Caption=Laser off command
+
+[G92 Setting]
+Section=CFF Options
+Ident=G92
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No G92;<1>G92X0Y0;<2>G92X#610Y#611;<3>G90 followed by G92X0.0Y0.0;
+Tab=Start/End of file
+Category=Start of file
+Caption=G92 code style
+
+[G52 Setting]
+Section=CFF Options
+Ident=G52
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No G52 Line;<1>G52X#610Y#611;<2>G52X0Y0;
+Tab=Start/End of file
+Category=Start of file
+Caption=G52 Line
+
+[M200 Setting]
+Section=CFF Options
+Ident=M200
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No M200 Line;<1>M200;
+Tab=Start/End of file
+Category=Start of file
+Caption=M200 Line
+
+[Auto Gas Setting]
+Section=CFF Options
+Ident=AutoGasControlOnly
+Default=0
+DataType=Boolean
+Units=None
+Hidden=1
+Tab=Start/End of file
+Category=Start of file
+Caption=M352 Line
+Hint=This option may neeed to be selected for anyone using option "condition variables set to 3"
+
+[Start Nest Home]
+Section=CFF Options
+Ident=StartNestHome
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No G28 home to start nest;<1>Output G28Z0 and G28X0Y0 at start;<2>Output G28X0Y0 at start;<3>Output G28Z0 at start
+Tab=Start/End of file
+Category=Start of file
+Caption=Start a full nest with G28 home codes
+
+[End Nest Home]
+Section=CFF Options
+Ident=EndNestHome
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No G28 home to end nest;<1>Output G28 home codes at end;
+Tab=Start/End of file
+Category=End of file
+Caption=End a full nest with G28 home codes
+
+[Mitsubishi End of Program M199 M78]
+Section=CFF Options
+Ident=End Of Prog M199 M78
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No M199 or M78;<1>Output M199;<2>Output M78;
+Tab=Start/End of file
+Category=Mitsubishi end of program
+Caption=M199 and M78 code
+
+[Mitsubishi M75x sub codes]
+Section=CFF Options
+Ident=M75x subs
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No M750/M751;<1>Encapsulate subs in M750/M751;
+Tab=Subroutines
+Category=Mitsubishi subroutines
+Caption=M750/751 codes
+
+[Mitsubishi sub lift code]
+Section=CFF Options
+Ident=Subs Lift Code
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>G28Z0;<1>M199;<2>No G28Z0 or M199 between subs;
+Tab=Subroutines
+Category=Mitsubishi subroutines
+Caption=Lift code between subroutines
+
+[Mitsubishi sub reserved range behavior]
+Section=CFF Options
+Ident=Subs reserved range behavior
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>Jump over reserved range;<2>Roll back to 0001;
+Tab=Subroutines
+Category=Mitsubishi subroutines
+Caption=Mitsubishi subroutine reserved range behavior
+Hint=What happens if a subroutine or program number strays into the reserved range
+
+[Mitsubishi sub address lower reserved range]
+Section=CFF Options
+Ident=reserved range lower
+Default=7000
+DataType=Integer
+Units=None
+Hidden=1
+Tab=Subroutines
+Category=Mitsubishi subroutines
+Caption=Lower reserved range threshold
+Hint=reserved range for subroutines or program numbers (must be lower than the higher range value)
+
+[Mitsubishi sub address upper reserved range]
+Section=CFF Options
+Ident=reserved range upper
+Default=9999
+DataType=Integer
+Units=None
+Hidden=1
+Tab=Subroutines
+Category=Mitsubishi subroutines
+Caption=Upper reserved range threshold
+Hint=reserved range for subroutines or program numbers (must be higher than the lower range value)
+
+[Mitsubishi sub G69 setting]
+Section=CFF Options
+Ident=Subs G69 Code
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=0
+Tab=Subroutines
+Choices=<0>No G69;<1>G69 output;
+Category=Mitsubishi subroutines
+Caption=Subroutine G69 code
+
+[Mitsubishi sub G52 setting]
+Section=CFF Options
+Ident=Subs G52 Zero
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=0
+Tab=Subroutines
+Choices=<0>Zero the coordinate system between subs;<1>Do not zero coordinate system;
+Category=Mitsubishi subroutines
+Caption=Subroutine coordinate system
+
+[Mitsubishi sub address setting]
+Section=CFF Options
+Ident=Subs Start Number
+Default=0
+DataType=Integer
+Units=None
+Hidden=1
+Tab=Subroutines
+Category=Mitsubishi subroutines
+Caption=Start Number for Subroutines
+Hint=Only available when scheduling system is off! If 0, normal behavior, if any other value subs will start from the given number
+
+[Mitsubishi scheduling system]
+Section=CFF Options
+Ident=Scheduling System
+Default=0
+DataType=Boolean
+Units=None
+Hidden=1
+Tab=Subroutines
+Category=Mitsubishi scheduling system
+Caption=Use Mitsubishi scheduling system
+Hint=Turns on and off the scheduling system (continuous program/sub numbering)
+
+[Mitsubishi line number setting]
+Section=CFF Options
+Ident=Mitsubishi Line numbers
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>Standard ProNest behavior;<1>Line numbers on each line for main program, each profile within subs;
+Tab=Subroutines
+Category=Mitsubishi subroutines
+Caption=Mitsubishi line number option
+Hint=Choose to name sequentially or to start from N1 for each part
+
+[Height sensor distance]
+Section=CFF Options
+Ident=Height sensor distance
+Default=0.1
+DataType=Float
+Units=Length
+Tab=Mitsubishi
+Category=Off sheet cutting
+Caption=Height sensor distance
+Hint=The value to rewind back onto the sheet when skeleton or crop cutting off sheet
+Hidden=0
+
+[Offsheet start strategy]
+Section=CFF Options
+Ident=Offsheet start strategy
+Default=1
+DataType=Integer
+Limit=Choices
+Units=None
+Tab=Mitsubishi
+Category=Off sheet cutting
+Caption=Offsheet strategy
+Choices=<0>Start on-sheet, cut off-sheet, lift, position, cut;<1>Start on-sheet cut off-sheet cut-back; 
+Hint=Modify behavior of laser when commencing an off-sheet cut in a crop or skeleton cut operation
+Hidden=1
+
+[Override Offsheet Extensions]
+Section=CFF Options
+Ident=Override Offsheet Extensions
+Default=0.0
+DataType=Float
+Units=Length
+Tab=Mitsubishi
+Category=Off sheet cutting
+Caption=Override crop extension at top and right of sheet
+Hint=The extension value to use when cutting beyond the top or right edge of the sheet. 0 means don't override.
+Hidden=0
+
+[Optional S0 Setting]
+Section=CFF Options
+Ident=Optional S0 Setting
+Default=0
+Hidden=1
+DataType=Integer
+Limit=Choices
+Choices=<0>No S0;<1>(S0);<2>S0;
+Tab=Mitsubishi
+Category=(S0) On process on motion
+Caption=Output an optional (S0) on process on motion - old CO2 machines
+
+[Exact Stop Check Setting]
+Section=CFF Options
+Ident=Exact Stop Check
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>No exact stop codes;<1>G61/G64 codes;<2>G09 single shot;<3>Optional single shot (G9);<4>G04X(seconds) (all profiles);<5>G04X(seconds) (end of leads)
+Tab=Mitsubishi
+Category=Exact stop
+Caption=Exact stop check
+
+[G52 Coordinates]
+Section=CFF Options
+Ident=G52 Coord Setting
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>Normal;<1>G52 cannot be negative;
+Tab=Mitsubishi
+Category=G52 coordinates
+Caption=Negative G52 coordinates
+Hint=Does the machine accept negative G52 coords
+
+[Cut Condition Code]
+Section=CFF Options
+Ident=Cut Condition Code
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>#501 code;<1>Use #501 initially, then M code e.g (M109) to override;
+Tab=Mitsubishi
+Category=Cut condition
+Caption=Change cut condition code
+
+[Cancel Cut Condition]
+Section=CFF Options
+Ident=Cancel Condition Setting
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>Do Nothing;<1>Output 'M101' to cancel condition;
+Tab=Mitsubishi
+Category=Cut condition
+Caption=Cancel cut condition with M101
+Hint=Only available if 'Change cut condition code' set to use M code overrides
+
+[Purge Between Process Setting]
+Section=CFF Options
+Ident=Purge between processes
+Default=0
+DataType=Integer
+Limit=Choices
+Units=None
+Hidden=1
+Choices=<0>Scribe spreadsheet controls purge;<1>Always purge;
+Tab=Mitsubishi
+Category=Process control
+Caption=Purge settings
+Hint=Choose to purge between a scribe and cut and vice versa - this can be controlled in the spreadsheet with a 'Purge' column value set to 1
+
+[Purge Code]
+Section=CFF Options
+Ident=Purge Macro
+Default=9060
+DataType=Integer
+Units=None
+Hidden=0
+Tab=Mitsubishi
+Category=Process control
+Caption=Purge macro
+
+[Remote 360 Programmer Setting]
+Section=CFF Options
+Ident=Programmer
+Default=Programmer
+DataType=String
+Units=None
+Hidden=0
+Tab=Program header information
+Category=Remote 360
+Caption=Programmer name
+
+[Program Header Comments Setting]
+Section=CFF Options
+Ident=Number of comments
+Default=0
+DataType=Integer
+Units=None
+Hidden=0
+Tab=Program header information
+Category=Program comments
+Caption=Number of comment lines
+
+[Remote 360 Cutting Distance Setting]
+Section=CFF Options
+Ident=Output Cutting Distance
+Default=0
+Hidden=1
+DataType=Integer
+Limit=Choices
+Units=None
+Tab=Program header information
+Category=Remote 360
+Choices=<0>Output cutting distance;<1>Do not output cutting distance;
+Caption=Cutting distance
+
+[Height Control End of profile]
+Section=CFF Options
+Ident=Force Height Control End Of Profile
+Default=0
+Hidden=1
+DataType=Integer
+Limit=Choices
+Units=None
+Tab=Mitsubishi
+Category=Height control
+Choices=<0>No height control code;<1>Height control code;
+Caption=Force height control on at profile end:
+
+[D Word on Cutter Comp Line]
+Section=CFF Options
+Ident=Output Dword on Cutter Comp Lines
+Default=0
+Hidden=1
+DataType=Integer
+Limit=Choices
+Units=None
+Tab=Mitsubishi
+Category=Variables
+Choices=<0>Do not output (D<n>) after cutter comp;<1>Output (D<n>) after cutter comp;
+Caption=Output D word on cutter comp line
+
+[Force M199 Off]
+Section=CFF Options
+Ident=Force M199 Off
+Default=0
+Hidden=1
+DataType=Integer
+Limit=Choices
+Units=None
+Tab=Mitsubishi
+Category=Laser control
+Choices=<0>Standard (M199 for off up);<1>Force M199 for all laser off;
+Caption=M199 laser off behavior
+
+[M199 Between Processes]
+Section=CFF Options
+Ident=M199 Between Processes
+Default=0
+Hidden=1
+DataType=Integer
+Limit=Choices
+Units=None
+Tab=Mitsubishi
+Category=Laser control
+Choices=<0>Standard (No M199 between processes);<1>M199 between processes;
+Caption=M199 between processes
+
+[M199 After Each Scribe Setting]
+Section=CFF Options
+Ident=M199 After Each Scribe
+Default=0
+Hidden=1
+DataType=Integer
+Limit=Choices
+Units=None
+Tab=Mitsubishi
+Category=Laser control
+Choices=<0>No head raise after each scribe;<1>M199 head raise after every scribe
+Caption=M199 after each scribe
+
+[M199 Between Parts]
+Section=CFF Options
+Ident=M199 Between Parts
+Default=0
+Hidden=1
+DataType=Integer
+Limit=Choices
+Units=None
+Tab=Mitsubishi
+Category=Laser control
+Choices=<0>Standard (Follow other M199 rules);<1>Force M199 between parts ;
+Caption=M199 between parts
+
+[Nozzle Clean On Off]
+Section=CFF Options
+Ident=NozzleCleanOnOff
+Default=0
+Hidden=1
+DataType=Integer
+Limit=Choices
+Units=None
+Tab=Mitsubishi
+Category=Nozzle clean
+Choices=<0>No nozzle cleaning;<1>Nozzle clean at end of program
+Caption=Nozzle clean behavior
+
+[Nozzle Clean Macro]
+Section=CFF Options
+Ident=NozzleCleanCode
+Default=9245
+DataType=String
+Units=None
+Hidden=1
+Tab=Mitsubishi
+Category=Nozzle clean
+Caption=Nozzle clean code
+
+[Mitsubishi Line Numbers]
+Section=CFF Options
+Ident=LineNumberFormat
+Default=0
+Hidden=1
+DataType=Integer
+Limit=Choices
+Units=None
+Tab=Mitsubishi
+Category=Formatting
+Choices=<0>N1;<3>N001;<4>N0001;
+Caption=Line number formatting:
+
+[Mitsubishi G Code Style]
+Section=CFF Options
+Ident=MotionCodeStyle
+Default=0
+Hidden=1
+DataType=Integer
+Limit=Choices
+Units=None
+Tab=Mitsubishi
+Category=Formatting
+Choices=<0>G0,G1,G2,G3;<1>G00,G01,G02,G03;
+Caption=G code formatting
+
+[USER DEFINED VARIABLES]
+// Internal variables used by the CFF
+SAVEPARTNAME|STRING|0
+SAVENUM|INTEGER|0
+PARTCOUNT|INTEGER|0
+SAVEX|DOUBLE|0.0
+SAVEY|DOUBLE|0.0
+DX|DOUBLE|0.0
+DY|DOUBLE|0.0
+X2|DOUBLE|0.0
+Y2|DOUBLE|0.0
+EXACTSTOPCHECK|INTEGER|0
+ANGLECHANGE|DOUBLE|0.0
+KERFSTATUS|INTEGER|0
+PREKERFED|INTEGER|0
+AHCISON|INTEGER|3
+AHC|STRING|ON
+SUBSTARTX|DOUBLE|0.0
+SUBSTARTY|DOUBLE|0.0
+CONFIGUSEDVALUE|INTEGER|0
+CONFIGUSEKERFONLEADINMOVE|INTEGER|0
+CONFIGUSEKERFONLEADOUTMOVE|INTEGER|0
+CONFIGNOG40ONARC|INTEGER|0
+CONFIGFEEDRATEONMOVE|INTEGER|0
+CONFIGSUPRESSFEEDRATE|INTEGER|0
+CONFIGUSEEXACTSTOPCHECK|INTEGER|0
+CONFIGUSEMODALMOTIONCODES|INTEGER|0
+CONFIGUSEMODALXY|INTEGER|0
+CONFIGAHCISON|INTEGER|0
+CONFIGIJALWAYSINCREMENTAL|INTEGER|1
+CONFIGSOPLINENOLOCATION|INTEGER|0
+CONFIGFORCEEXTERIORTOOFFUP|INTEGER|1
+CONFIGDELAYPROCESSONMOTION|INTEGER|0
+CONFIGUSEM87OFF|INTEGER|0
+FORCEOFFUP|INTEGER|0
+ZEROPTX|DOUBLE|0.0
+ZEROPTY|DOUBLE|0.0
+CFFDIR|STRING|none
+CURRENTMOTION|INTEGER|-1
+MOTIONTYPE|INTEGER|-1
+INTAB|INTEGER|0
+INCHAIN|INTEGER|0
+ARCTOOSMALL|INTEGER|0
+SPACE|INTEGER|32
+KERFD1|DOUBLE|0.0
+KERFD2|DOUBLE|0.0
+KERFD3|DOUBLE|0.0
+KERFD4|DOUBLE|0.0
+KERFD5|DOUBLE|0.0
+KERFD6|DOUBLE|0.0
+KERFD7|DOUBLE|0.0
+KERFD8|DOUBLE|0.0
+KERFD9|DOUBLE|0.0
+KERFD10|DOUBLE|0.0
+KERFD11|DOUBLE|0.0
+KERFD12|DOUBLE|0.0
+KERFD13|DOUBLE|0.0
+KERFD14|DOUBLE|0.0
+KERFD15|DOUBLE|0.0
+KERFD16|DOUBLE|0.0
+KERFD17|DOUBLE|0.0
+KERFD18|DOUBLE|0.0
+KERFD19|DOUBLE|0.0
+KERFD20|DOUBLE|0.0
+
+MC2KERFD1|DOUBLE|0.0
+MC2KERFD2|DOUBLE|0.0
+MC2KERFD3|DOUBLE|0.0
+MC2KERFD4|DOUBLE|0.0
+MC2KERFD5|DOUBLE|0.0
+MC2KERFD6|DOUBLE|0.0
+MC2KERFD7|DOUBLE|0.0
+MC2KERFD8|DOUBLE|0.0
+MC2KERFD9|DOUBLE|0.0
+MC2KERFD10|DOUBLE|0.0
+MC2KERFD11|DOUBLE|0.0
+MC2KERFD12|DOUBLE|0.0
+MC2KERFD13|DOUBLE|0.0
+MC2KERFD14|DOUBLE|0.0
+MC2KERFD15|DOUBLE|0.0
+MC2KERFD16|DOUBLE|0.0
+MC2KERFD17|DOUBLE|0.0
+MC2KERFD18|DOUBLE|0.0
+MC2KERFD19|DOUBLE|0.0
+MC2KERFD20|DOUBLE|0.0
+
+CC101|INTEGER|0
+CC102|INTEGER|0
+CC103|INTEGER|0
+CC104|INTEGER|0
+CC105|INTEGER|0
+CC106|INTEGER|0
+CC107|INTEGER|0
+CC108|INTEGER|0
+CC109|INTEGER|0
+CC110|INTEGER|0
+CC111|INTEGER|0
+CC112|INTEGER|0
+CC113|INTEGER|0
+CC114|INTEGER|0
+CC115|INTEGER|0
+CC116|INTEGER|0
+CC117|INTEGER|0
+
+MC2CC101|INTEGER|0
+MC2CC102|INTEGER|0
+MC2CC103|INTEGER|0
+MC2CC104|INTEGER|0
+MC2CC105|INTEGER|0
+MC2CC106|INTEGER|0
+MC2CC107|INTEGER|0
+MC2CC108|INTEGER|0
+MC2CC109|INTEGER|0
+MC2CC110|INTEGER|0
+MC2CC111|INTEGER|0
+MC2CC112|INTEGER|0
+MC2CC113|INTEGER|0
+MC2CC114|INTEGER|0
+MC2CC115|INTEGER|0
+MC2CC116|INTEGER|0
+MC2CC117|INTEGER|0
+
+ORIGLINENUMBER|INTEGER|0
+FORCELINEARMOTION|STRING|FALSE
+CONFIGUSEBND|INTEGER|0
+BND|INTEGER|0
+FORCERAPID|INTEGER|0
+//
+// Possible Process Parameters Start Here
+CUTSUB|INTEGER|0
+CUTCONDITION|INTEGER|0
+PIERCECONDITION|STRING|0
+REPIERCECONDITION|STRING|0
+ENTERSHEETDISTANCE|DOUBLE|0.5
+EXITSHEETDISTANCE|DOUBLE|0.5
+HEIGHTSENSEDISTANCE|DOUBLE|0.10
+OVERRIDEOFFSHEETEXTENSION|DOUBLE|0.0
+LEADINLENGTH|DOUBLE|0.0
+
+//Variables required for checkplate (process linear motion)
+
+EXTENSION|DOUBLE|0.0
+ONSHEETPOSX|DOUBLE|0
+ONSHEETPOSY|DOUBLE|0
+OFFSHEETPOSX|DOUBLE|0
+OFFSHEETPOSY|DOUBLE|0
+UVX|DOUBLE|0
+UVY|DOUBLE|0
+STARTX|DOUBLE|0
+STARTY|DOUBLE|0
+NEEDDEFAULTOFFSHEETCUT|INTEGER|0
+LINELENGTH|DOUBLE|0.0
+
+// Process Parameter Columns Start Here
+//
+// Exact Stop Angle is the angle change where G61/G64/G09 take effect
+EXACTSTOPANGLE|DOUBLE|90
+// Feedrate during cutting/scribing
+FEEDRATE|DOUBLE|0.0
+// D Value is the value used with G41/G42 kerf compensation, not the kerf size itself
+DVALUE|INTEGER|1
+// Disable AHC will output disable Height Control for a profile, typically small holes
+DISABLEAHC|INTEGER|0
+// Kerf is the total width of the removed material during cutting
+KERF|DOUBLE|0.0
+// Dwell is typically used with center marking for the length of the delay
+DWELL|DOUBLE|0.0
+M100NAME|STRING|none
+M100THICKNESS|DOUBLE|0.0
+DEEPDIMPLE|INTEGER|0
+OUTPUTTIMER|INTEGER|0
+PROGNUMRESERVEDRANGESTART|INTEGER|7000
+PROGNUMRESERVEDRANGEEND|INTEGER|9999
+PROGNUMCHANGED|INTEGER|0
+CUSTOMER_NAME|STRING|Default
+COMPANY_NAME|STRING|Mitsubishi Laser
+INASUB|INTEGER|0
+HEADSTATUS|INTEGER|-1
+HEADDOWN|INTEGER|1
+HEADUP|INTEGER|2
+M87OFF|INTEGER|-1
+M121OFF|INTEGER|-1
+
+//Olympic steel comments
+COUNTERI|INTEGER|-1
+NUMCOMMENTS|INTEGER|-1
+COMMENT|STRING|NONE
+
+QUALITY|INTEGER|-1
+PURGE|INTEGER|-1
+CALLINGSUBS|INTEGER|0
+CUTTINGDISTANCE|DOUBLE|0.0
+CUTCONDTOGGLE|INTEGER|0
+DWELLTIME|DOUBLE|0.5
+INALEAD|INTEGER|0
+FUZZ|DOUBLE|0.01
+USEPARENTHESESONCCCALLS|INTEGER|1
+OUTPUTCUTTERCOMPLINES|INTEGER|1
+DIDG28Z0|INTEGER|0
+NOZZLECLEANCODE|STRING|9245
+
+LASTCUTCLC|INTEGER|0
+SKELETONCUPUP|INTEGER|0
+MATERIALCODE|STRING|NONE
+PARTSTARTENDCODE|INTEGER|0
+
+MACHINE2USEPARENTHESESONCCCALLS|INTEGER|1
+MACHINE|INTEGER|1
+MACHINE2M100NAME|STRING|none
+MACHINE2M100THICKNESS|DOUBLE|0.0
+MACHINE2KERF|DOUBLE|0.0
+MACHINE1NAME|STRING|None
+MACHINE2NAME|STRING|None
+//End of document---
